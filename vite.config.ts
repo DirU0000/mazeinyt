@@ -9,13 +9,13 @@ function localApiPlugin(): Plugin {
     configureServer(server) {
       server.middlewares.use('/api/trending', async (req, res) => {
         try {
-          const { getTrending } = await server.ssrLoadModule('/api/_lib/trending.ts')
+          const { getTrendingWithFallback } = await server.ssrLoadModule('/api/_lib/trending.ts')
           const url = new URL(req.url ?? '', 'http://localhost')
           const country = url.searchParams.get('country') ?? 'global'
           const category = url.searchParams.get('category') ?? 'all'
-          const videos = await getTrending(country, category)
+          const result = await getTrendingWithFallback(country, category)
           res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ videos }))
+          res.end(JSON.stringify(result))
         } catch (err) {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')

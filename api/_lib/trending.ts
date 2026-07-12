@@ -174,3 +174,39 @@ export async function getTrending(
   // 진짜 '글로벌 순위'가 되도록 병합 후 조회수 내림차순으로 다시 정렬한다.
   return Array.from(merged.values()).sort((a, b) => b.viewCount - a.viewCount);
 }
+
+// 특정 국가의 특정 카테고리 결과가 이 개수 미만이면 글로벌 순위로 대체한다.
+// (예: YouTube가 한국의 '교육' mostPopular 차트를 제공하지 않아 결과가 0개인 경우)
+const MIN_CATEGORY_RESULTS = 10;
+
+export interface TrendingResult {
+  videos: Video[];
+  /** 현지 자료 부족으로 글로벌 순위를 대신 보여줬을 때만 채워진다. */
+  fallback: { from: Country; localCount: number } | null;
+}
+
+/**
+ * 순위를 조회하되, 현지(국가별) 카테고리 자료가 너무 적으면 글로벌 순위로
+ * 대체(fallback)해 빈 화면을 막는다. 대체가 일어나면 fallback 정보를 함께 반환해
+ * 프론트에서 "자료가 적어 글로벌 순위를 표시한다"는 안내를 띄울 수 있게 한다.
+ */
+export async function getTrendingWithFallback(
+  country: Country,
+  category: Category,
+): Promise<TrendingResult> {
+  const videos = await getTrending(country, category);
+
+  const isSpecificCategory = country !== 'global' && category !== 'all';
+  if (isSpecificCategory && videos.length < MIN_CATEGORY_RESULTS) {
+    const globalVideos = await getTrending('global', category);
+    // 글로벌이 현지보다 실제로 더 많을 때만 대체 (둘 다 비면 대체 의미 없음).
+    if (globalVideos.length > videos.length) {
+      return {
+        videos: globalVideos,
+        fallback: { from: country, localCount: videos.length },
+      };
+    }
+  }
+
+  return { videos, fallback: null };
+}

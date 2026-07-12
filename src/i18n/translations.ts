@@ -90,6 +90,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.desc':
       '미국·일본·한국의 실시간 유튜브 트렌드 영상을 한곳에서 모아, 조회수·좋아요·구독자 수 기준으로 비교하고 검색할 수 있습니다. 국가·카테고리·업로드 기간별로 필터링해 지금 가장 화제가 되는 영상을 확인해보세요.',
     'video.empty': '조건에 맞는 영상이 없습니다.',
+    'videos.fallbackNotice':
+      '이 지역에서는 해당 카테고리의 트렌드 자료가 적어, 글로벌 순위를 대신 표시합니다.',
     'video.error': '영상을 불러오지 못했습니다: {msg}',
 
     'pagination.prev': '이전',
@@ -222,6 +224,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.desc':
       "Compare real-time trending YouTube videos from the US, Japan, and Korea in one place, ranked by views, likes, and subscriber count. Filter by country, category, and upload window to see what's buzzing right now.",
     'video.empty': 'No videos match your filters.',
+    'videos.fallbackNotice':
+      'Not enough local trending data for this category, so global rankings are shown instead.',
     'video.error': 'Failed to load videos: {msg}',
 
     'pagination.prev': 'Prev',
@@ -355,6 +359,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.desc':
       'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を一箇所にまとめ、再生回数・高評価数・登録者数で比較・検索できます。国・カテゴリ・投稿期間で絞り込んで、今話題の動画をチェックしましょう。',
     'video.empty': '条件に合う動画がありません。',
+    'videos.fallbackNotice':
+      'この地域ではこのカテゴリのトレンドデータが少ないため、グローバルランキングを表示しています。',
     'video.error': '動画を読み込めませんでした: {msg}',
 
     'pagination.prev': '前へ',

@@ -28,7 +28,10 @@ export default function VideosPage() {
     sort,
     setSort,
   } = useVideoFilters();
-  const { videos, loading, error } = useTrendingVideos(country, category);
+  const { videos, fallback, loading, error } = useTrendingVideos(
+    country,
+    category,
+  );
 
   const [page, setPage] = useState(0);
 
@@ -98,6 +101,9 @@ export default function VideosPage() {
       )}
       {!loading && !error && (
         <>
+          {fallback && (
+            <p className="video-list__notice">{t('videos.fallbackNotice')}</p>
+          )}
           <VideoList videos={pageItems} />
           <Pagination page={page} pageCount={pageCount} onChange={setPage} />
         </>
