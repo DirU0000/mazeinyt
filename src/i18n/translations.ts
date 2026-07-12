@@ -17,7 +17,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.videos.description':
       '미국·일본·한국의 실시간 유튜브 트렌드 영상을 조회수·좋아요·구독자 수 기준으로 비교하고 검색해보세요.',
     'seo.videos.keywords':
-      '유튜브 트렌드, 유튜브 인기 급상승, 실시간 유튜브 순위, 유튜브 조회수 순위, 미국 일본 한국 유튜브',
+      '유튜브 순위, 유튜브 트렌드, 유튜브 인기 급상승, 실시간 유튜브 순위, 유튜브 조회수 순위, 미국 일본 한국 유튜브',
     'seo.keywords.title': 'maze — 국가별 트렌드 키워드',
     'seo.keywords.description':
       '미국·일본·한국 트렌드 영상 제목에서 자주 등장하는 키워드를 국가별로 비교합니다.',
