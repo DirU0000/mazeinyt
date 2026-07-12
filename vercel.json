@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    { "source": "/guide", "destination": "/guide.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
