@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getKeywordsForCountry } from './_lib/keywords';
+import { getKeywordsForCountry } from './_lib/keywords.js';
 
 export default async function handler(_req: VercelRequest, res: VercelResponse) {
   try {

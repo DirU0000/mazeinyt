@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import type { Category, Country } from '../src/types/video';
-import { getTrending } from './_lib/trending';
+import type { Category, Country } from '../src/types/video.js';
+import { getTrending } from './_lib/trending.js';
 
 const VALID_COUNTRIES: Country[] = ['global', 'us', 'jp', 'kr'];
 const VALID_CATEGORIES: Category[] = [

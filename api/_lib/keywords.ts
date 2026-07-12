@@ -1,6 +1,6 @@
-import type { Country } from '../../src/types/video';
-import { getTrendingForCountry } from './trending';
-import { STOPWORDS } from './stopwords';
+import type { Country } from '../../src/types/video.js';
+import { getTrendingForCountry } from './trending.js';
+import { STOPWORDS } from './stopwords.js';
 
 export interface Keyword {
   word: string;

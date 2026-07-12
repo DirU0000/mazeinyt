@@ -1,5 +1,5 @@
-import type { ChannelSurge, Country } from '../../src/types/video';
-import { getTrending } from './trending';
+import type { ChannelSurge, Country } from '../../src/types/video.js';
+import { getTrending } from './trending.js';
 
 // 구독자 수가 이보다 적은(또는 숨김=0) 채널은 비율이 불안정해 제외한다.
 const MIN_SUBSCRIBERS = 1000;

@@ -1,10 +1,10 @@
-import type { VideoDetail } from '../../src/types/video';
-import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache';
+import type { VideoDetail } from '../../src/types/video.js';
+import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchVideosByIds,
   type YtVideoItem,
-} from './youtubeClient';
+} from './youtubeClient.js';
 
 function pickThumbnail(item: YtVideoItem) {
   const t = item.snippet.thumbnails;

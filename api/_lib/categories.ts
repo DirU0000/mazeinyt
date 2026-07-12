@@ -1,4 +1,4 @@
-import type { Category } from '../../src/types/video';
+import type { Category } from '../../src/types/video.js';
 
 /**
  * YouTube 공식 videoCategoryId 매핑.

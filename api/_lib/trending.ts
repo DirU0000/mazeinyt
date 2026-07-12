@@ -1,15 +1,15 @@
-import type { Category, Country, Video } from '../../src/types/video';
+import type { Category, Country, Video } from '../../src/types/video.js';
 import {
   CATEGORY_TO_YT_ID,
   filterHowtoBucket,
   SHARED_HOWTO_CATEGORIES,
-} from './categories';
-import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache';
+} from './categories.js';
+import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchMostPopular,
   type YtVideoItem,
-} from './youtubeClient';
+} from './youtubeClient.js';
 
 const REGION_CODE: Record<Exclude<Country, 'global'>, string> = {
   us: 'US',
@@ -18,8 +18,8 @@ const REGION_CODE: Record<Exclude<Country, 'global'>, string> = {
 };
 
 // CATEGORY_TO_YT_ID의 중복 제거된 카테고리 id 목록 (26은 food/beauty가 공유).
-const DISTINCT_CATEGORY_IDS = Array.from(
-  new Set(Object.values(CATEGORY_TO_YT_ID)),
+const DISTINCT_CATEGORY_IDS: string[] = Array.from(
+  new Set(Object.values(CATEGORY_TO_YT_ID) as string[]),
 );
 
 // '전체' 풀은 일반 트렌드 + 모든 카테고리 트렌드를 합친 것이라 매우 커질 수 있어

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import type { Country } from '../src/types/video';
-import { getChannelSurge } from './_lib/channels';
+import type { Country } from '../src/types/video.js';
+import { getChannelSurge } from './_lib/channels.js';
 
 const VALID_COUNTRIES: Country[] = ['global', 'us', 'jp', 'kr'];
 
