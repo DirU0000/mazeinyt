@@ -14,7 +14,6 @@ export const categoryOptions: { value: Category; labelKey: string }[] = [
   { value: 'music', labelKey: 'category.music' },
   { value: 'sports', labelKey: 'category.sports' },
   { value: 'food', labelKey: 'category.food' },
-  { value: 'education', labelKey: 'category.education' },
   { value: 'beauty', labelKey: 'category.beauty' },
   { value: 'comedy', labelKey: 'category.comedy' },
 ];
