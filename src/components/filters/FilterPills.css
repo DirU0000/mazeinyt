@@ -1,0 +1,10 @@
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-pills__item {
+  padding: 7px 14px;
+  font-size: 13px;
+}

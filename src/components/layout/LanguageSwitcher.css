@@ -1,0 +1,29 @@
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  color: var(--text);
+}
+
+.lang-switcher .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--sub);
+}
+
+.lang-switcher select {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.lang-switcher select:focus-visible {
+  outline: none;
+}

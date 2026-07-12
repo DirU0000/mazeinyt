@@ -1,0 +1,21 @@
+.video-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.video-list__empty {
+  text-align: center;
+  color: var(--sub);
+  padding: 60px 0;
+}
+
+.video-list__status {
+  text-align: center;
+  color: var(--sub);
+  padding: 60px 0;
+}
+
+.video-list__status--error {
+  color: var(--primary);
+}
