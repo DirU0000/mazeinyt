@@ -145,6 +145,9 @@ export async function getTrendingForCountry(
 
   const rawItems = await getRawItems(country, category);
   const videos = await toVideos(rawItems, country);
+  // API 계약: 응답은 항상 조회수 내림차순. ('all'은 getAllPool에서 이미 정렬되지만
+  // 개별 카테고리는 YouTube 트렌드 차트 원본 순서라 여기서 통일 정렬해 준다.)
+  videos.sort((a, b) => b.viewCount - a.viewCount);
   setCache(cacheKey, videos, TRENDING_CACHE_TTL_MS);
   return videos;
 }
@@ -167,5 +170,7 @@ export async function getTrending(
   for (const v of [...us, ...jp, ...kr]) {
     if (!merged.has(v.id)) merged.set(v.id, v);
   }
-  return Array.from(merged.values());
+  // 3개 국가 목록을 이어붙인 상태라 전역으로는 정렬돼 있지 않다.
+  // 진짜 '글로벌 순위'가 되도록 병합 후 조회수 내림차순으로 다시 정렬한다.
+  return Array.from(merged.values()).sort((a, b) => b.viewCount - a.viewCount);
 }
