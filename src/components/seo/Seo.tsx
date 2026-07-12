@@ -13,6 +13,14 @@ const ROUTE_SEO_KEY: Record<string, string> = {
   '/about': 'about',
 };
 
+const KEYWORD_KEYS = new Set(['videos', 'keywords', 'channels']);
+
+const OG_LOCALE: Record<string, string> = {
+  ko: 'ko_KR',
+  en: 'en_US',
+  ja: 'ja_JP',
+};
+
 function setMeta(name: string, content: string, attr: 'name' | 'property' = 'name') {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
   if (!el) {
@@ -76,9 +84,16 @@ export default function Seo() {
     setMeta('og:description', description, 'property');
     setMeta('og:url', url, 'property');
     setMeta('og:type', 'website', 'property');
+    setMeta('og:locale', OG_LOCALE[lang] ?? 'ko_KR', 'property');
     setMeta('twitter:title', title);
     setMeta('twitter:description', description);
     setCanonical(url);
+
+    if (KEYWORD_KEYS.has(key)) {
+      setMeta('keywords', t(`seo.${key}.keywords`));
+    } else {
+      removeMeta('keywords');
+    }
 
     if (override?.image) {
       setMeta('og:image', override.image, 'property');

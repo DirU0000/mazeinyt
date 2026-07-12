@@ -16,12 +16,18 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.videos.title': 'maze — 미국·일본·한국 실시간 유튜브 인기 영상',
     'seo.videos.description':
       '미국·일본·한국의 실시간 유튜브 트렌드 영상을 조회수·좋아요·구독자 수 기준으로 비교하고 검색해보세요.',
+    'seo.videos.keywords':
+      '유튜브 트렌드, 유튜브 인기 급상승, 실시간 유튜브 순위, 유튜브 조회수 순위, 미국 일본 한국 유튜브',
     'seo.keywords.title': 'maze — 국가별 트렌드 키워드',
     'seo.keywords.description':
       '미국·일본·한국 트렌드 영상 제목에서 자주 등장하는 키워드를 국가별로 비교합니다.',
+    'seo.keywords.keywords':
+      '유튜브 트렌드 키워드, 국가별 유튜브 키워드, 유튜브 인기 검색어',
     'seo.channels.title': 'maze — 급상승 유튜브 채널',
     'seo.channels.description':
       '구독자 대비 조회수가 폭발적으로 늘고 있는 급상승 유튜브 채널 순위를 국가별로 확인하세요.',
+    'seo.channels.keywords':
+      '유튜브 급상승 채널, 구독자 대비 조회수, 떡상 채널, 유튜브 채널 순위',
     'seo.privacy.title': 'maze — 개인정보처리방침',
     'seo.privacy.description': 'maze 서비스의 개인정보처리방침입니다.',
     'seo.terms.title': 'maze — 이용약관',
@@ -141,12 +147,18 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.videos.title': 'maze — Trending YouTube Videos in the US, Japan & Korea',
     'seo.videos.description':
       'Compare and search real-time trending YouTube videos from the US, Japan, and Korea by views, likes, and subscriber count.',
+    'seo.videos.keywords':
+      'youtube trending, youtube trending videos, real-time youtube rankings, youtube views ranking, US Japan Korea youtube',
     'seo.keywords.title': 'maze — Trending Keywords by Country',
     'seo.keywords.description':
       'See which words appear most often in trending video titles across the US, Japan, and Korea.',
+    'seo.keywords.keywords':
+      'youtube trending keywords, youtube keywords by country, trending search terms',
     'seo.channels.title': 'maze — Rising YouTube Channels',
     'seo.channels.description':
       'Discover rising YouTube channels whose trending videos are outperforming their subscriber count, by country.',
+    'seo.channels.keywords':
+      'rising youtube channels, views to subscribers ratio, youtube channel rankings',
     'seo.privacy.title': 'maze — Privacy Policy',
     'seo.privacy.description': "maze's privacy policy.",
     'seo.terms.title': 'maze — Terms of Service',
@@ -269,12 +281,17 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.videos.title': 'maze — アメリカ・日本・韓国の人気YouTube動画',
     'seo.videos.description':
       'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を再生回数・高評価数・登録者数で比較・検索できます。',
+    'seo.videos.keywords':
+      'YouTube トレンド, YouTube 急上昇, リアルタイム YouTube ランキング, YouTube 再生回数ランキング',
     'seo.keywords.title': 'maze — 国別トレンドキーワード',
     'seo.keywords.description':
       'アメリカ・日本・韓国のトレンド動画タイトルに頻出するキーワードを国別に比較します。',
+    'seo.keywords.keywords': 'YouTube トレンドキーワード, 国別YouTubeキーワード',
     'seo.channels.title': 'maze — 急上昇YouTubeチャンネル',
     'seo.channels.description':
       '登録者数に対して再生回数が急増している急上昇YouTubeチャンネルを国別に確認できます。',
+    'seo.channels.keywords':
+      'YouTube 急上昇チャンネル, 登録者比再生回数, YouTubeチャンネルランキング',
     'seo.privacy.title': 'maze — プライバシーポリシー',
     'seo.privacy.description': 'mazeのプライバシーポリシーです。',
     'seo.terms.title': 'maze — 利用規約',
