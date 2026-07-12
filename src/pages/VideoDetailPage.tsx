@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Icon from '../components/icons/Icon';
 import { useSeoOverride } from '../components/seo/SeoOverrideContext';
+import { SITE_URL } from '../config/site';
 import { useI18n } from '../i18n/I18nContext';
 import { useVideoDetail } from '../hooks/useVideoDetail';
 import { formatCount } from '../utils/format';
@@ -12,17 +14,47 @@ export default function VideoDetailPage() {
   const { t } = useI18n();
   const { video, loading, error, notFound } = useVideoDetail(id);
 
-  useSeoOverride(
-    video
-      ? {
-          title: `${video.title} — maze`,
-          description: t('video.insight.pace', {
-            days: video.daysSincePublished,
-            n: formatCount(video.viewsPerDay),
-          }),
-        }
-      : null,
-  );
+  const seoOverride = useMemo(() => {
+    if (!video) return null;
+    const paceDescription = t('video.insight.pace', {
+      days: video.daysSincePublished,
+      n: formatCount(video.viewsPerDay),
+    });
+    return {
+      title: `${video.title} — maze`,
+      description: paceDescription,
+      image: video.thumbnailUrl,
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        name: video.title,
+        description: paceDescription,
+        thumbnailUrl: [video.thumbnailUrl],
+        uploadDate: video.publishedAt,
+        embedUrl: `https://www.youtube.com/embed/${video.id}`,
+        contentUrl: video.videoUrl,
+        interactionStatistic: [
+          {
+            '@type': 'InteractionCounter',
+            interactionType: 'https://schema.org/WatchAction',
+            userInteractionCount: video.viewCount,
+          },
+          {
+            '@type': 'InteractionCounter',
+            interactionType: 'https://schema.org/LikeAction',
+            userInteractionCount: video.likeCount,
+          },
+        ],
+        author: {
+          '@type': 'Person',
+          name: video.channelName,
+        },
+        mainEntityOfPage: `${SITE_URL}/video/${video.id}`,
+      },
+    };
+  }, [video, t]);
+
+  useSeoOverride(seoOverride);
 
   if (loading) {
     return <p className="video-list__status">{t('common.loading')}</p>;

@@ -9,6 +9,7 @@ export default function KeywordsPage() {
 
   return (
     <section>
+      <h1 className="page-heading">{t('keywords.h1')}</h1>
       <p className="keywords-page__desc">{t('keywords.desc')}</p>
       {loading && <p className="video-list__status">{t('common.loading')}</p>}
       {error && (

@@ -28,6 +28,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'maze 서비스의 이용약관입니다.',
     'seo.about.title': 'maze — 소개',
     'seo.about.description': 'maze 서비스 소개 페이지입니다.',
+    'seo.notfound.title': 'maze — 페이지를 찾을 수 없음',
+    'seo.notfound.description': '요청하신 페이지를 찾을 수 없습니다.',
 
     'tab.videos': '영상 목록',
     'tab.keywords': '트렌드 키워드',
@@ -78,6 +80,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'common.views': '{n}회',
     'common.count': '{n}회',
 
+    'videos.h1': '실시간 인기 유튜브 영상',
+    'videos.desc':
+      '미국·일본·한국의 실시간 유튜브 트렌드 영상을 한곳에서 모아, 조회수·좋아요·구독자 수 기준으로 비교하고 검색할 수 있습니다. 국가·카테고리·업로드 기간별로 필터링해 지금 가장 화제가 되는 영상을 확인해보세요.',
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'video.error': '영상을 불러오지 못했습니다: {msg}',
 
@@ -85,10 +90,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'pagination.next': '다음',
     'pagination.aria': '페이지 이동',
 
+    'keywords.h1': '국가별 유튜브 트렌드 키워드',
     'keywords.desc': '각 국가 트렌드 영상 제목에서 자주 등장한 단어를 모았습니다.',
     'keywords.empty': '추출된 키워드가 없습니다.',
     'keywords.error': '키워드를 불러오지 못했습니다: {msg}',
 
+    'channels.h1': '급상승 유튜브 채널',
     'channels.desc':
       '트렌드 영상의 조회수가 채널 구독자 수를 얼마나 앞질렀는지(구독자 대비 조회수 배율) 기준으로 급상승 중인 채널을 추립니다.',
     'channels.error': '채널을 불러오지 못했습니다: {msg}',
@@ -123,6 +130,10 @@ export const translations: Record<Lang, Record<string, string>> = {
       '업로드 후 {days}일이 지났고, 하루 평균 약 {n}회의 조회수가 발생하고 있습니다.',
 
     'lang.aria': '언어 선택',
+
+    'notfound.title': '페이지를 찾을 수 없습니다',
+    'notfound.desc': '요청하신 주소의 페이지가 존재하지 않거나 이동되었습니다.',
+    'notfound.backHome': '홈으로 돌아가기',
   },
   en: {
     tagline: 'Trending YouTube videos worldwide, at a glance',
@@ -142,6 +153,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': "maze's terms of service.",
     'seo.about.title': 'maze — About',
     'seo.about.description': 'About the maze service.',
+    'seo.notfound.title': 'maze — Page Not Found',
+    'seo.notfound.description': 'The page you requested could not be found.',
 
     'tab.videos': 'Videos',
     'tab.keywords': 'Trending Keywords',
@@ -193,6 +206,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'common.views': '{n} views',
     'common.count': '×{n}',
 
+    'videos.h1': 'Trending YouTube Videos Right Now',
+    'videos.desc':
+      "Compare real-time trending YouTube videos from the US, Japan, and Korea in one place, ranked by views, likes, and subscriber count. Filter by country, category, and upload window to see what's buzzing right now.",
     'video.empty': 'No videos match your filters.',
     'video.error': 'Failed to load videos: {msg}',
 
@@ -200,11 +216,13 @@ export const translations: Record<Lang, Record<string, string>> = {
     'pagination.next': 'Next',
     'pagination.aria': 'Page navigation',
 
+    'keywords.h1': 'Trending YouTube Keywords by Country',
     'keywords.desc':
       "Words that appear most often in each country's trending video titles.",
     'keywords.empty': 'No keywords found.',
     'keywords.error': 'Failed to load keywords: {msg}',
 
+    'channels.h1': 'Rising YouTube Channels',
     'channels.desc':
       "Ranks rising channels by how far their trending videos' views exceed their subscriber count (views-to-subscribers ratio).",
     'channels.error': 'Failed to load channels: {msg}',
@@ -240,6 +258,10 @@ export const translations: Record<Lang, Record<string, string>> = {
       "It's been {days} day(s) since upload, averaging about {n} views per day.",
 
     'lang.aria': 'Select language',
+
+    'notfound.title': 'Page Not Found',
+    'notfound.desc': "The page you're looking for doesn't exist or has moved.",
+    'notfound.backHome': 'Back to home',
   },
   ja: {
     tagline: '世界の人気YouTube動画をひと目で',
@@ -259,6 +281,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'mazeの利用規約です。',
     'seo.about.title': 'maze — 概要',
     'seo.about.description': 'mazeサービスの紹介ページです。',
+    'seo.notfound.title': 'maze — ページが見つかりません',
+    'seo.notfound.description': 'お探しのページが見つかりませんでした。',
 
     'tab.videos': '動画一覧',
     'tab.keywords': 'トレンドキーワード',
@@ -310,6 +334,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'common.views': '{n}回',
     'common.count': '{n}回',
 
+    'videos.h1': 'リアルタイム人気YouTube動画',
+    'videos.desc':
+      'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を一箇所にまとめ、再生回数・高評価数・登録者数で比較・検索できます。国・カテゴリ・投稿期間で絞り込んで、今話題の動画をチェックしましょう。',
     'video.empty': '条件に合う動画がありません。',
     'video.error': '動画を読み込めませんでした: {msg}',
 
@@ -317,10 +344,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'pagination.next': '次へ',
     'pagination.aria': 'ページ移動',
 
+    'keywords.h1': '国別YouTubeトレンドキーワード',
     'keywords.desc': '各国のトレンド動画タイトルに頻出する単語を集めました。',
     'keywords.empty': 'キーワードがありません。',
     'keywords.error': 'キーワードを読み込めませんでした: {msg}',
 
+    'channels.h1': '急上昇YouTubeチャンネル',
     'channels.desc':
       'トレンド動画の再生回数がチャンネル登録者数をどれだけ上回ったか（登録者比の再生回数）で急上昇チャンネルを抽出します。',
     'channels.error': 'チャンネルを読み込めませんでした: {msg}',
@@ -355,5 +384,9 @@ export const translations: Record<Lang, Record<string, string>> = {
       '投稿から{days}日が経過し、1日あたり平均約{n}回の再生が発生しています。',
 
     'lang.aria': '言語を選択',
+
+    'notfound.title': 'ページが見つかりません',
+    'notfound.desc': 'お探しのページは存在しないか、移動された可能性があります。',
+    'notfound.backHome': 'ホームに戻る',
   },
 };

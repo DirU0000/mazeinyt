@@ -8,8 +8,10 @@ import {
 } from 'react';
 
 interface SeoOverride {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  structuredData?: Record<string, unknown>;
 }
 
 interface SeoOverrideValue {
@@ -45,7 +47,7 @@ export function useSeoOverride(value: SeoOverride | null) {
     setOverride(value);
     return () => setOverride(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value?.title, value?.description]);
+  }, [value?.title, value?.description, value?.image, value?.structuredData]);
 }
 
 export function useSeoOverrideValue() {

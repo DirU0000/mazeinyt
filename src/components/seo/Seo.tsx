@@ -33,6 +33,28 @@ function setCanonical(href: string) {
   el.setAttribute('href', href);
 }
 
+const JSONLD_ID = 'seo-jsonld-override';
+
+function setStructuredData(data: Record<string, unknown> | undefined) {
+  const existing = document.getElementById(JSONLD_ID);
+  if (!data) {
+    existing?.remove();
+    return;
+  }
+  let el = existing as HTMLScriptElement | null;
+  if (!el) {
+    el = document.createElement('script');
+    el.id = JSONLD_ID;
+    el.setAttribute('type', 'application/ld+json');
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+}
+
+function removeMeta(name: string, attr: 'name' | 'property' = 'name') {
+  document.head.querySelector(`meta[${attr}="${name}"]`)?.remove();
+}
+
 /**
  * 라우트·언어가 바뀔 때마다 title/description/canonical/OG 태그를 갱신한다.
  * 개별 페이지가 useSeoOverride()로 값을 지정하면 그걸 우선 사용한다 (영상 상세 페이지 등).
@@ -54,10 +76,21 @@ export default function Seo() {
     setMeta('og:description', description, 'property');
     setMeta('og:url', url, 'property');
     setMeta('og:type', 'website', 'property');
-    setMeta('twitter:card', 'summary');
     setMeta('twitter:title', title);
     setMeta('twitter:description', description);
     setCanonical(url);
+
+    if (override?.image) {
+      setMeta('og:image', override.image, 'property');
+      setMeta('twitter:card', 'summary_large_image');
+      setMeta('twitter:image', override.image);
+    } else {
+      removeMeta('og:image', 'property');
+      setMeta('twitter:card', 'summary');
+      removeMeta('twitter:image');
+    }
+
+    setStructuredData(override?.structuredData);
   }, [pathname, lang, t, override]);
 
   return null;

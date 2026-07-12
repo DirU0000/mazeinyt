@@ -41,3 +41,18 @@ a {
     padding: 0 16px 32px;
   }
 }
+
+.page-heading {
+  font-size: 22px;
+  text-align: center;
+  margin: 4px 0 8px;
+}
+
+.page-intro {
+  text-align: center;
+  color: var(--sub);
+  font-size: 13px;
+  max-width: 640px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}

@@ -15,6 +15,7 @@ export default function ChannelsPage() {
 
   return (
     <section>
+      <h1 className="page-heading">{t('channels.h1')}</h1>
       <p className="channels-page__desc">{t('channels.desc')}</p>
 
       <div className="channels-page__filter">

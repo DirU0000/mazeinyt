@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import FilterBar from '../components/filters/FilterBar';
 import Pagination from '../components/videos/Pagination';
 import VideoList from '../components/videos/VideoList';
+import { useSeoOverride } from '../components/seo/SeoOverrideContext';
+import { SITE_URL } from '../config/site';
 import { useI18n } from '../i18n/I18nContext';
 import { useTrendingVideos } from '../hooks/useTrendingVideos';
 import { useVideoFilters } from '../hooks/useVideoFilters';
@@ -47,10 +49,35 @@ export default function VideosPage() {
     setPage(0);
   }, [country, category, uploadWindow, sort, searchQuery]);
 
-  const pageItems = shown.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const pageItems = useMemo(
+    () => shown.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
+    [shown, page],
+  );
+
+  const itemListStructuredData = useMemo(() => {
+    if (pageItems.length === 0) return null;
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: pageItems.map((video, i) => ({
+        '@type': 'ListItem',
+        position: page * PAGE_SIZE + i + 1,
+        url: `${SITE_URL}/video/${video.id}`,
+        name: video.title,
+      })),
+    };
+  }, [pageItems, page]);
+
+  useSeoOverride(
+    itemListStructuredData
+      ? { structuredData: itemListStructuredData }
+      : null,
+  );
 
   return (
     <section>
+      <h1 className="page-heading">{t('videos.h1')}</h1>
+      <p className="page-intro">{t('videos.desc')}</p>
       <FilterBar
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}
