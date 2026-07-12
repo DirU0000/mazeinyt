@@ -81,6 +81,7 @@ export default function VideosPage() {
     <section>
       <h1 className="page-heading">{t('videos.h1')}</h1>
       <p className="page-intro">{t('videos.desc')}</p>
+      <p className="page-guide">{t('videos.guide')}</p>
       <FilterBar
         searchQuery={searchQuery}
         onSearchQueryChange={setSearchQuery}

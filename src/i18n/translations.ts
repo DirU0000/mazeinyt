@@ -34,6 +34,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'maze 서비스의 이용약관입니다.',
     'seo.about.title': 'maze — 소개',
     'seo.about.description': 'maze 서비스 소개 페이지입니다.',
+    'seo.guide.title': 'maze — 유튜브 트렌드로 콘텐츠 아이디어 찾는 법',
+    'seo.guide.description':
+      '조회수·구독자 대비 조회수·트렌드 키워드를 콘텐츠 기획에 활용하는 방법을 정리한 가이드입니다.',
     'seo.notfound.title': 'maze — 페이지를 찾을 수 없음',
     'seo.notfound.description': '요청하신 페이지를 찾을 수 없습니다.',
 
@@ -42,6 +45,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.channels': '급상승 채널',
 
     'footer.about': '소개',
+    'footer.guide': '활용 가이드',
     'footer.privacy': '개인정보처리방침',
     'footer.terms': '이용약관',
     'footer.copyright': '© 2026 maze. 유튜브 공식 API를 사용하며, YouTube·Google과 제휴 관계가 아닙니다.',
@@ -89,6 +93,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.h1': '실시간 인기 유튜브 영상',
     'videos.desc':
       '미국·일본·한국의 실시간 유튜브 트렌드 영상을 한곳에서 모아, 조회수·좋아요·구독자 수 기준으로 비교하고 검색할 수 있습니다. 국가·카테고리·업로드 기간별로 필터링해 지금 가장 화제가 되는 영상을 확인해보세요.',
+    'videos.guide':
+      '정렬 기준을 "구독자 대비 조회수"로 바꾸면, 구독자 수는 적지만 영상이 폭발적으로 터진 채널을 찾을 수 있습니다. 이런 영상은 대형 채널의 트렌드보다 소규모 채널이 따라 하기 쉬운 주제·연출인 경우가 많아, 콘텐츠 아이디어를 얻기에 더 유용합니다. 같은 카테고리를 국가별로 바꿔가며 비교하면, 아직 한국에 들어오지 않은 해외 트렌드를 먼저 포착할 수도 있습니다.',
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'videos.fallbackNotice':
       '이 지역에서는 해당 카테고리의 트렌드 자료가 적어, 글로벌 순위를 대신 표시합니다.',
@@ -100,12 +106,16 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'keywords.h1': '국가별 유튜브 트렌드 키워드',
     'keywords.desc': '각 국가 트렌드 영상 제목에서 자주 등장한 단어를 모았습니다.',
+    'keywords.guide':
+      '같은 키워드가 여러 국가에서 동시에 보인다면 지역에 국한되지 않는 보편적인 소재라는 뜻이고, 한 국가에서만 두드러진다면 그 지역 시청자에게 특화된 소재라는 뜻입니다. 영상을 새로 기획할 때 제목·태그에 이 키워드를 참고하면 현재 검색·추천 알고리즘이 밀어주는 주제와 방향을 맞추는 데 도움이 됩니다.',
     'keywords.empty': '추출된 키워드가 없습니다.',
     'keywords.error': '키워드를 불러오지 못했습니다: {msg}',
 
     'channels.h1': '급상승 유튜브 채널',
     'channels.desc':
       '트렌드 영상의 조회수가 채널 구독자 수를 얼마나 앞질렀는지(구독자 대비 조회수 배율) 기준으로 급상승 중인 채널을 추립니다.',
+    'channels.guide':
+      '배율이 높다는 것은 기존 구독자를 넘어 알고리즘 추천으로 새로운 시청자에게 도달했다는 뜻입니다. 이런 채널의 최근 영상은 특정 순간에 플랫폼이 밀어주고 있는 형식·주제일 가능성이 높으므로, 어떤 편집·썸네일·도입부 방식을 썼는지 살펴보면 지금 잘 통하는 패턴을 파악하는 데 참고가 됩니다.',
     'channels.error': '채널을 불러오지 못했습니다: {msg}',
     'channels.ratio': '구독자 대비 {n}배',
 
@@ -167,6 +177,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': "maze's terms of service.",
     'seo.about.title': 'maze — About',
     'seo.about.description': 'About the maze service.',
+    'seo.guide.title': 'maze — How to Find Content Ideas from YouTube Trends',
+    'seo.guide.description':
+      'A guide to using view counts, views-to-subscribers ratio, and trending keywords to plan your next video.',
     'seo.notfound.title': 'maze — Page Not Found',
     'seo.notfound.description': 'The page you requested could not be found.',
 
@@ -175,6 +188,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.channels': 'Rising Channels',
 
     'footer.about': 'About',
+    'footer.guide': 'Guide',
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Service',
     'footer.copyright':
@@ -223,6 +237,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.h1': 'Trending YouTube Videos Right Now',
     'videos.desc':
       "Compare real-time trending YouTube videos from the US, Japan, and Korea in one place, ranked by views, likes, and subscriber count. Filter by country, category, and upload window to see what's buzzing right now.",
+    'videos.guide':
+      "Switch the sort to \"views vs. subscribers\" to surface channels with a small subscriber base whose video suddenly took off. These are often easier to replicate than a mega-channel's trend, since the format or topic isn't tied to a huge production budget. Comparing the same category across countries can also help you spot a trend before it reaches your home market.",
     'video.empty': 'No videos match your filters.',
     'videos.fallbackNotice':
       'Not enough local trending data for this category, so global rankings are shown instead.',
@@ -235,12 +251,16 @@ export const translations: Record<Lang, Record<string, string>> = {
     'keywords.h1': 'Trending YouTube Keywords by Country',
     'keywords.desc':
       "Words that appear most often in each country's trending video titles.",
+    'keywords.guide':
+      "A keyword that shows up in multiple countries at once points to a universal topic that isn't tied to one region, while a word that only stands out in one country signals something local to that audience. Working these keywords into your own titles and tags can help align your video with what search and recommendation algorithms are currently favoring.",
     'keywords.empty': 'No keywords found.',
     'keywords.error': 'Failed to load keywords: {msg}',
 
     'channels.h1': 'Rising YouTube Channels',
     'channels.desc':
       "Ranks rising channels by how far their trending videos' views exceed their subscriber count (views-to-subscribers ratio).",
+    'channels.guide':
+      "A high ratio means the video reached far beyond the channel's existing subscribers through algorithmic recommendation. That usually signals a format, topic, or thumbnail style the platform is actively pushing right now, so it's worth studying how the video is edited and opens in its first few seconds.",
     'channels.error': 'Failed to load channels: {msg}',
     'channels.ratio': '{n}× subscribers',
 
@@ -302,6 +322,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'mazeの利用規約です。',
     'seo.about.title': 'maze — 概要',
     'seo.about.description': 'mazeサービスの紹介ページです。',
+    'seo.guide.title': 'maze — YouTubeトレンドからコンテンツのヒントを見つける方法',
+    'seo.guide.description':
+      '再生回数・登録者比の再生回数・トレンドキーワードを動画企画に活用する方法をまとめたガイドです。',
     'seo.notfound.title': 'maze — ページが見つかりません',
     'seo.notfound.description': 'お探しのページが見つかりませんでした。',
 
@@ -310,6 +333,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.channels': '急上昇チャンネル',
 
     'footer.about': '概要',
+    'footer.guide': '活用ガイド',
     'footer.privacy': 'プライバシーポリシー',
     'footer.terms': '利用規約',
     'footer.copyright':
@@ -358,6 +382,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'videos.h1': 'リアルタイム人気YouTube動画',
     'videos.desc':
       'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を一箇所にまとめ、再生回数・高評価数・登録者数で比較・検索できます。国・カテゴリ・投稿期間で絞り込んで、今話題の動画をチェックしましょう。',
+    'videos.guide':
+      '並べ替えを「登録者比の再生回数順」に変えると、登録者数は少ないのに動画が爆発的に伸びたチャンネルを見つけられます。こうした動画は大手チャンネルのトレンドより、企画や演出を真似しやすい場合が多く、コンテンツのヒントとして参考になります。同じカテゴリを国ごとに切り替えて比較すれば、自国にまだ来ていない海外のトレンドをいち早く見つけることもできます。',
     'video.empty': '条件に合う動画がありません。',
     'videos.fallbackNotice':
       'この地域ではこのカテゴリのトレンドデータが少ないため、グローバルランキングを表示しています。',
@@ -369,12 +395,16 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'keywords.h1': '国別YouTubeトレンドキーワード',
     'keywords.desc': '各国のトレンド動画タイトルに頻出する単語を集めました。',
+    'keywords.guide':
+      '同じキーワードが複数の国で同時に見られる場合、地域を問わない普遍的な話題である可能性が高く、ある一国だけで目立つ場合は、その地域の視聴者に特化した話題だと考えられます。動画を企画する際にタイトルやタグにこれらのキーワードを取り入れると、今の検索・レコメンドアルゴリズムが後押ししている方向性に合わせやすくなります。',
     'keywords.empty': 'キーワードがありません。',
     'keywords.error': 'キーワードを読み込めませんでした: {msg}',
 
     'channels.h1': '急上昇YouTubeチャンネル',
     'channels.desc':
       'トレンド動画の再生回数がチャンネル登録者数をどれだけ上回ったか（登録者比の再生回数）で急上昇チャンネルを抽出します。',
+    'channels.guide':
+      '倍率が高いということは、既存の登録者を超えてアルゴリズムのおすすめから新しい視聴者に届いたことを意味します。こうしたチャンネルの直近の動画は、今プラットフォームが後押ししている形式やテーマである可能性が高いため、編集手法やサムネイル、冒頭の作り方を観察すると参考になります。',
     'channels.error': 'チャンネルを読み込めませんでした: {msg}',
     'channels.ratio': '登録者比 {n}倍',
 

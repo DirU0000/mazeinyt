@@ -11,6 +11,7 @@ export default function KeywordsPage() {
     <section>
       <h1 className="page-heading">{t('keywords.h1')}</h1>
       <p className="keywords-page__desc">{t('keywords.desc')}</p>
+      <p className="page-guide">{t('keywords.guide')}</p>
       {loading && <p className="video-list__status">{t('common.loading')}</p>}
       {error && (
         <p className="video-list__status video-list__status--error">

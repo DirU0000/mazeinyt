@@ -10,6 +10,7 @@ import ChannelsPage from './pages/ChannelsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import AboutPage from './pages/AboutPage';
+import GuidePage from './pages/GuidePage';
 import VideoDetailPage from './pages/VideoDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/guide" element={<GuidePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

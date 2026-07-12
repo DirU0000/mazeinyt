@@ -56,3 +56,15 @@ a {
   margin: 0 auto 20px;
   line-height: 1.6;
 }
+
+.page-guide {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--primary);
+  background: var(--surface);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text);
+  font-size: 13.5px;
+  line-height: 1.75;
+}

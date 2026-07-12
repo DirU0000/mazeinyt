@@ -11,6 +11,7 @@ const ROUTE_SEO_KEY: Record<string, string> = {
   '/privacy': 'privacy',
   '/terms': 'terms',
   '/about': 'about',
+  '/guide': 'guide',
 };
 
 const KEYWORD_KEYS = new Set(['videos', 'keywords', 'channels']);

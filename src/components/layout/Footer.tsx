@@ -8,6 +8,7 @@ export default function Footer() {
     <footer className="app-footer">
       <nav className="app-footer__links">
         <Link to="/about">{t('footer.about')}</Link>
+        <Link to="/guide">{t('footer.guide')}</Link>
         <Link to="/privacy">{t('footer.privacy')}</Link>
         <Link to="/terms">{t('footer.terms')}</Link>
       </nav>
