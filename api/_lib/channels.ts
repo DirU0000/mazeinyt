@@ -32,9 +32,17 @@ const SUBSCRIBER_TIERS: { min: number; max: number | null }[] = [
   { min: 10_000_000, max: null },
 ];
 
-// '전체 구간' 모드에서 또래 채널로 볼 구독자 수 범위 (로그 거리 기준, 약 0.5배~2배).
-const CONTINUOUS_LOG_WINDOW = 0.3;
-const CONTINUOUS_MIN_PEERS = 3;
+// 또래 그룹(구간/윈도우) 표본이 이보다 적으면 평균이 통계적으로 불안정하므로
+// 아예 결과에서 제외한다. 실측 결과 1천~1만 구간은 국가 불문 0~2개, 1천만 이상
+// 구간은 한국·일본 기준 4개뿐이라 이 정도 표본에서는 평균이 채널 한두 개에
+// 크게 좌우된다 (예: 미스터비스트처럼 압도적으로 큰 채널의 '또래'가 실제로는
+// 거의 없는 경우).
+const MIN_PEER_SAMPLE = 5;
+
+// '전체 구간' 모드에서 또래 채널로 볼 구독자 수 범위 (로그 거리 기준).
+const CONTINUOUS_LOG_WINDOW_START = 0.3; // 약 0.5배~2배
+const CONTINUOUS_LOG_WINDOW_MAX = 1.0; // 최대 약 0.1배~10배까지만 허용
+const CONTINUOUS_LOG_WINDOW_STEP = 0.2;
 
 async function mapWithConcurrency<T, R>(
   items: T[],
@@ -195,6 +203,8 @@ function rankSegmented(stats: ChannelStat[]): ChannelSurge[] {
 
   const ranked: ChannelSurge[] = [];
   for (const [tierIndex, group] of byTier) {
+    // 구간 표본이 너무 적으면 평균이 불안정하므로 그 구간 전체를 제외한다.
+    if (group.length < MIN_PEER_SAMPLE) continue;
     const tier = SUBSCRIBER_TIERS[tierIndex];
     const avg = group.reduce((a, b) => a + b.recentAvgViews, 0) / group.length;
     for (const s of group) {
@@ -211,17 +221,21 @@ function rankContinuous(stats: ChannelStat[]): ChannelSurge[] {
 
   const ranked: ChannelSurge[] = [];
   for (const s of withLog) {
-    let window = CONTINUOUS_LOG_WINDOW;
+    let window = CONTINUOUS_LOG_WINDOW_START;
     let peers: typeof withLog = [];
-    // 후보가 적은 구간에서는 비교 대상이 너무 적을 수 있으므로 창을 점진적으로 넓힌다.
-    for (let attempt = 0; attempt < 5; attempt++) {
+    // 후보가 적은 구간에서는 비교 대상이 너무 적을 수 있으므로 창을 점진적으로
+    // 넓히되, 상한(CONTINUOUS_LOG_WINDOW_MAX)을 두어 "또래"라 부르기 어려울
+    // 만큼 규모 차이가 큰 채널까지 끌어오지는 않는다.
+    while (true) {
       peers = withLog.filter(
         (p) => p.channelId !== s.channelId && Math.abs(p.log - s.log) <= window,
       );
-      if (peers.length >= CONTINUOUS_MIN_PEERS) break;
-      window *= 2;
+      if (peers.length >= MIN_PEER_SAMPLE || window >= CONTINUOUS_LOG_WINDOW_MAX) break;
+      window += CONTINUOUS_LOG_WINDOW_STEP;
     }
-    if (peers.length === 0) continue;
+    // 상한까지 넓혀도 표본이 부족하면(예: 압도적으로 큰 채널) 비교 자체가
+    // 무의미하므로 결과에서 제외한다.
+    if (peers.length < MIN_PEER_SAMPLE) continue;
 
     const avg = peers.reduce((a, b) => a + b.recentAvgViews, 0) / peers.length;
     ranked.push(toChannelSurge(s, avg));
