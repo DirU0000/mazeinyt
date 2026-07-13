@@ -8,7 +8,8 @@ export type IconName =
   | 'play'
   | 'users'
   | 'heart'
-  | 'calendar';
+  | 'calendar'
+  | 'board';
 
 const paths: Record<IconName, { fill: string; stroke: string }> = {
   flame: {
@@ -55,6 +56,10 @@ const paths: Record<IconName, { fill: string; stroke: string }> = {
   calendar: {
     fill: 'M4 8h16v12H4Z',
     stroke: 'M4 8h16v12H4Z M4 8V6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M8 3v4M16 3v4M4 12h16',
+  },
+  board: {
+    fill: 'M4 4h16v16H4Z',
+    stroke: 'M4 4h16v16H4Z M8 9h8M8 13h8M8 17h5',
   },
 };
 

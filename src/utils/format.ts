@@ -12,3 +12,11 @@ export function formatCount(value: number): string {
 export function formatRatio(value: number): number {
   return value >= 10 ? Math.round(value) : Number(value.toFixed(1));
 }
+
+/** ISO 시각을 "YYYY.MM.DD HH:mm" (로컬 시간, 언어 무관) 형태로 표시한다. */
+export function formatDateTime(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  const p = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}.${p(d.getMonth() + 1)}.${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}

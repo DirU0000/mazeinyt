@@ -12,6 +12,10 @@ import TermsPage from './pages/TermsPage';
 import AboutPage from './pages/AboutPage';
 import GuidePage from './pages/GuidePage';
 import VideoDetailPage from './pages/VideoDetailPage';
+import BoardPage from './pages/BoardPage';
+import BoardPostPage from './pages/BoardPostPage';
+import BoardWritePage from './pages/BoardWritePage';
+import BoardEditPage from './pages/BoardEditPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
@@ -32,6 +36,10 @@ function App() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/guide" element={<GuidePage />} />
+        <Route path="/board" element={<BoardPage />} />
+        <Route path="/board/write" element={<BoardWritePage />} />
+        <Route path="/board/:id" element={<BoardPostPage />} />
+        <Route path="/board/:id/edit" element={<BoardEditPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />

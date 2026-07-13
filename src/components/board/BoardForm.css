@@ -1,0 +1,83 @@
+.board-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.board-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.board-form__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sub);
+}
+
+.board-form__field input,
+.board-form__field textarea {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.board-form__field textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.board-form__field input:focus,
+.board-form__field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.board-form__radios {
+  display: flex;
+  gap: 16px;
+}
+
+.board-form__radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.board-form__error {
+  margin: 0;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.board-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.board-form__submit {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.board-form__submit:hover:not(:disabled) {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.board-form__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

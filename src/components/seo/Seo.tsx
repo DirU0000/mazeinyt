@@ -12,6 +12,7 @@ const ROUTE_SEO_KEY: Record<string, string> = {
   '/terms': 'terms',
   '/about': 'about',
   '/guide': 'guide',
+  '/board': 'board',
 };
 
 const KEYWORD_KEYS = new Set(['videos', 'keywords', 'channels']);
@@ -74,7 +75,9 @@ export default function Seo() {
   const override = useSeoOverrideValue();
 
   useEffect(() => {
-    const key = ROUTE_SEO_KEY[pathname] ?? 'videos';
+    const key =
+      ROUTE_SEO_KEY[pathname] ??
+      (pathname.startsWith('/board') ? 'board' : 'videos');
     const title = override?.title ?? t(`seo.${key}.title`);
     const description = override?.description ?? t(`seo.${key}.description`);
     const url = `${SITE_URL}${pathname}`;

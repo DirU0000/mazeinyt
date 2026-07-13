@@ -61,6 +61,56 @@ function localApiPlugin(): Plugin {
         }
       })
 
+      server.middlewares.use('/api/board', async (req, res) => {
+        // POST/PATCH/DELETE의 JSON 본문을 직접 읽는다 (connect 미들웨어는 자동 파싱 안 함).
+        function readBody(): Promise<any> {
+          return new Promise((resolve) => {
+            let raw = ''
+            req.on('data', (chunk) => (raw += chunk))
+            req.on('end', () => {
+              try { resolve(raw ? JSON.parse(raw) : {}) } catch { resolve({}) }
+            })
+          })
+        }
+        try {
+          const board = await server.ssrLoadModule('/api/_lib/board.ts')
+          const url = new URL(req.url ?? '', 'http://localhost')
+          const idParam = url.searchParams.get('id')
+          const id = idParam ? Number(idParam) : undefined
+          res.setHeader('Content-Type', 'application/json')
+
+          if (req.method === 'GET') {
+            if (id !== undefined) {
+              const post = await board.getPost(id)
+              if (!post) { res.statusCode = 404; res.end(JSON.stringify({ error: 'post not found' })); return }
+              res.end(JSON.stringify({ post })); return
+            }
+            const posts = await board.listPosts(url.searchParams.get('category') ?? undefined)
+            res.end(JSON.stringify({ posts })); return
+          }
+          if (req.method === 'POST') {
+            const post = await board.createPost(await readBody())
+            res.statusCode = 201; res.end(JSON.stringify({ post })); return
+          }
+          if (req.method === 'PATCH') {
+            if (id === undefined) { res.statusCode = 400; res.end(JSON.stringify({ error: 'id required' })); return }
+            const post = await board.updatePost(id, await readBody())
+            res.end(JSON.stringify({ post })); return
+          }
+          if (req.method === 'DELETE') {
+            if (id === undefined) { res.statusCode = 400; res.end(JSON.stringify({ error: 'id required' })); return }
+            await board.deletePost(id, (await readBody()).password)
+            res.end(JSON.stringify({ ok: true })); return
+          }
+          res.statusCode = 405; res.end(JSON.stringify({ error: 'method not allowed' }))
+        } catch (err) {
+          const status = (err as any)?.status ?? 500
+          res.statusCode = status
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ error: (err as Error).message }))
+        }
+      })
+
       server.middlewares.use('/api/video', async (req, res) => {
         try {
           const { getVideoDetail } = await server.ssrLoadModule('/api/_lib/videoDetail.ts')
@@ -88,6 +138,8 @@ function localApiPlugin(): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   process.env.YOUTUBE_API_KEY = env.YOUTUBE_API_KEY
+  process.env.SUPABASE_URL = env.SUPABASE_URL
+  process.env.SUPABASE_SERVICE_ROLE_KEY = env.SUPABASE_SERVICE_ROLE_KEY
 
   return {
     plugins: [react(), localApiPlugin()],
