@@ -46,12 +46,22 @@ export interface VideoDetail {
   viralRatio: number;
 }
 
+export type ChannelSurgeMode = 'segmented' | 'continuous';
+
 export interface ChannelSurge {
   channelId: string;
   channelName: string;
   channelUrl: string;
   subscriberCount: number;
-  trendingViews: number;
-  videoCount: number;
+  /** 가장 최근에 업로드된 영상 최대 3개의 평균 조회수. */
+  recentAvgViews: number;
+  /** 비교 대상(같은 구독자 구간, 또는 구독자 수가 비슷한 채널들)의 평균 조회수. */
+  peerAverageViews: number;
+  /** recentAvgViews - peerAverageViews. 이 값 기준으로 정렬된다. */
+  diff: number;
+  /** recentAvgViews / peerAverageViews. 화면 표시용. */
   ratio: number;
+  /** 'segmented' 모드에서만 채워지는 구독자 구간 경계 (언어별 표기는 클라이언트에서 포맷). */
+  tierMin?: number;
+  tierMax?: number | null;
 }

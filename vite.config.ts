@@ -42,10 +42,11 @@ function localApiPlugin(): Plugin {
 
       server.middlewares.use('/api/channels', async (req, res) => {
         try {
-          const { getChannelSurge } = await server.ssrLoadModule('/api/_lib/channels.ts')
+          const { getChannelRanking } = await server.ssrLoadModule('/api/_lib/channels.ts')
           const url = new URL(req.url ?? '', 'http://localhost')
           const country = url.searchParams.get('country') ?? 'global'
-          const channels = await getChannelSurge(country)
+          const mode = url.searchParams.get('mode') ?? 'segmented'
+          const channels = await getChannelRanking(country, mode)
           res.setHeader('Content-Type', 'application/json')
           res.end(JSON.stringify({ channels }))
         } catch (err) {

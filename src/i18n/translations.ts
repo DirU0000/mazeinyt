@@ -58,9 +58,14 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.categoryAria': '카테고리 필터',
     'filter.periodAria': '업로드 기간 필터',
     'filter.sortAria': '정렬 기준',
+    'filter.channelMode': '기준',
+    'filter.channelModeAria': '급상승 채널 비교 기준',
 
     'search.placeholder': '영상 제목, 채널명으로 검색',
     'search.aria': '영상 검색',
+
+    'channelMode.segmented': '고정 구간',
+    'channelMode.continuous': '전체 구간',
 
     'country.global': '전체',
     'country.us': '미국',
@@ -113,11 +118,16 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channels.h1': '급상승 유튜브 채널',
     'channels.desc':
-      '트렌드 영상의 조회수가 채널 구독자 수를 얼마나 앞질렀는지(구독자 대비 조회수 배율) 기준으로 급상승 중인 채널을 추립니다.',
+      '채널이 가장 최근에 올린 영상 최대 3개의 평균 조회수를, 비슷한 규모의 다른 채널들과 비교합니다. 그 차이가 클수록 지금 자기 규모 대비 이례적으로 잘 되고 있는 채널입니다. 아래 "기준"에서 비교 방식을 바꿀 수 있습니다.',
     'channels.guide':
-      '배율이 높다는 것은 기존 구독자를 넘어 알고리즘 추천으로 새로운 시청자에게 도달했다는 뜻입니다. 이런 채널의 최근 영상은 특정 순간에 플랫폼이 밀어주고 있는 형식·주제일 가능성이 높으므로, 어떤 편집·썸네일·도입부 방식을 썼는지 살펴보면 지금 잘 통하는 패턴을 파악하는 데 참고가 됩니다.',
+      '"고정 구간"은 구독자 1천~1만, 1만~10만처럼 정해진 구간 안에서만 비교하고, "전체 구간"은 구간을 나누지 않고 구독자 수가 비슷한 채널들을 그때그때 찾아 비교합니다. 구독자 수 제한 없이 전체 채널이 대상이라, 대형 채널도 자기 규모의 평소 성과를 크게 웃돌면 상위에 오를 수 있습니다.',
     'channels.error': '채널을 불러오지 못했습니다: {msg}',
-    'channels.ratio': '구독자 대비 {n}배',
+    'channels.ratio': '또래 평균 대비 {n}배',
+    'channels.tierRange': '구독자 {min}~{max}',
+    'channels.tierAbove': '구독자 {min} 이상',
+    'channels.statSubscribers': '구독자 {n}',
+    'channels.statRecentAvg': '최근 3개 평균 {n}',
+    'channels.statPeerAvg': '또래 평균 {n}',
 
     'video.back': '목록으로',
     'video.watchOnYoutube': 'YouTube에서 보기',
@@ -202,9 +212,14 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.categoryAria': 'Category filter',
     'filter.periodAria': 'Upload period filter',
     'filter.sortAria': 'Sort order',
+    'filter.channelMode': 'Compare by',
+    'filter.channelModeAria': 'Rising channel comparison method',
 
     'search.placeholder': 'Search by title or channel',
     'search.aria': 'Search videos',
+
+    'channelMode.segmented': 'Fixed tiers',
+    'channelMode.continuous': 'Whole range',
 
     'country.global': 'All',
     'country.us': 'USA',
@@ -258,11 +273,16 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channels.h1': 'Rising YouTube Channels',
     'channels.desc':
-      "Ranks rising channels by how far their trending videos' views exceed their subscriber count (views-to-subscribers ratio).",
+      "Compares each channel's average views over its last 3 uploads against similarly-sized channels. The bigger the gap, the more that channel is outperforming its own scale right now. Switch how peers are grouped under \"Compare by\" below.",
     'channels.guide':
-      "A high ratio means the video reached far beyond the channel's existing subscribers through algorithmic recommendation. That usually signals a format, topic, or thumbnail style the platform is actively pushing right now, so it's worth studying how the video is edited and opens in its first few seconds.",
+      '"Fixed tiers" compares within set subscriber bands (e.g. 1K–10K, 10K–100K), while "Whole range" finds similarly-sized channels dynamically with no fixed bands. Neither mode caps subscriber count, so a large channel can still rank high if it\'s wildly outperforming its own usual scale.',
     'channels.error': 'Failed to load channels: {msg}',
-    'channels.ratio': '{n}× subscribers',
+    'channels.ratio': '{n}× peer average',
+    'channels.tierRange': '{min}–{max} subs',
+    'channels.tierAbove': '{min}+ subs',
+    'channels.statSubscribers': '{n} subscribers',
+    'channels.statRecentAvg': 'last 3 avg {n}',
+    'channels.statPeerAvg': 'peer avg {n}',
 
     'video.back': 'Back to list',
     'video.watchOnYoutube': 'Watch on YouTube',
@@ -347,9 +367,14 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.categoryAria': 'カテゴリフィルター',
     'filter.periodAria': '投稿期間フィルター',
     'filter.sortAria': '並び替え基準',
+    'filter.channelMode': '比較基準',
+    'filter.channelModeAria': '急上昇チャンネルの比較方法',
 
     'search.placeholder': 'タイトル・チャンネル名で検索',
     'search.aria': '動画を検索',
+
+    'channelMode.segmented': '固定区間',
+    'channelMode.continuous': '全体区間',
 
     'country.global': '全体',
     'country.us': 'アメリカ',
@@ -402,11 +427,16 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channels.h1': '急上昇YouTubeチャンネル',
     'channels.desc':
-      'トレンド動画の再生回数がチャンネル登録者数をどれだけ上回ったか（登録者比の再生回数）で急上昇チャンネルを抽出します。',
+      'チャンネルが直近にアップロードした動画最大3本の平均再生回数を、同程度の規模の他チャンネルと比較します。差が大きいほど、今その規模にしては異例に伸びているチャンネルです。下の「比較基準」で比較方法を切り替えられます。',
     'channels.guide':
-      '倍率が高いということは、既存の登録者を超えてアルゴリズムのおすすめから新しい視聴者に届いたことを意味します。こうしたチャンネルの直近の動画は、今プラットフォームが後押ししている形式やテーマである可能性が高いため、編集手法やサムネイル、冒頭の作り方を観察すると参考になります。',
+      '「固定区間」は登録者数1千~1万、1万~10万のように決まった区間内だけで比較し、「全体区間」は区間を区切らず、その都度登録者数が近いチャンネルを探して比較します。どちらも登録者数の上限はないため、大規模チャンネルでも自分の規模の通常成績を大きく上回れば上位に入ることがあります。',
     'channels.error': 'チャンネルを読み込めませんでした: {msg}',
-    'channels.ratio': '登録者比 {n}倍',
+    'channels.ratio': '同規模平均比 {n}倍',
+    'channels.tierRange': '登録者{min}~{max}',
+    'channels.tierAbove': '登録者{min}以上',
+    'channels.statSubscribers': '登録者 {n}',
+    'channels.statRecentAvg': '直近3本平均 {n}',
+    'channels.statPeerAvg': '同規模平均 {n}',
 
     'video.back': '一覧に戻る',
     'video.watchOnYoutube': 'YouTubeで見る',

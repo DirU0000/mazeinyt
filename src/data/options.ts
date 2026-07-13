@@ -1,10 +1,21 @@
-import type { Category, Country, SortOption, UploadWindow } from '../types/video';
+import type {
+  Category,
+  ChannelSurgeMode,
+  Country,
+  SortOption,
+  UploadWindow,
+} from '../types/video';
 
 export const countryOptions: { value: Country; labelKey: string }[] = [
   { value: 'global', labelKey: 'country.global' },
   { value: 'us', labelKey: 'country.us' },
   { value: 'jp', labelKey: 'country.jp' },
   { value: 'kr', labelKey: 'country.kr' },
+];
+
+export const channelModeOptions: { value: ChannelSurgeMode; labelKey: string }[] = [
+  { value: 'segmented', labelKey: 'channelMode.segmented' },
+  { value: 'continuous', labelKey: 'channelMode.continuous' },
 ];
 
 export const categoryOptions: { value: Category; labelKey: string }[] = [

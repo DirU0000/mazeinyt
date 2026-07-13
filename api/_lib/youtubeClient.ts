@@ -35,6 +35,29 @@ interface YtChannelsListResponse {
   items: YtChannelItem[];
 }
 
+interface YtChannelContentDetailsItem {
+  id: string;
+  contentDetails: {
+    relatedPlaylists: {
+      uploads?: string;
+    };
+  };
+}
+
+interface YtChannelsContentDetailsResponse {
+  items: YtChannelContentDetailsItem[];
+}
+
+interface YtPlaylistItem {
+  contentDetails: {
+    videoId: string;
+  };
+}
+
+interface YtPlaylistItemsResponse {
+  items: YtPlaylistItem[];
+}
+
 function apiKey() {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) {
@@ -110,6 +133,44 @@ export async function fetchChannelSubscribers(channelIds: string[]) {
   }
 
   return result;
+}
+
+/** 채널 ID 배열(최대 50개씩 배치)로 '업로드' 재생목록 ID를 조회한다. */
+export async function fetchUploadsPlaylistIds(channelIds: string[]) {
+  const result = new Map<string, string>();
+  const unique = Array.from(new Set(channelIds));
+
+  for (let i = 0; i < unique.length; i += 50) {
+    const batch = unique.slice(i, i + 50);
+    const data = await ytFetch<YtChannelsContentDetailsResponse>('/channels', {
+      part: 'contentDetails',
+      id: batch.join(','),
+    });
+    for (const ch of data.items) {
+      const uploads = ch.contentDetails.relatedPlaylists.uploads;
+      if (uploads) result.set(ch.id, uploads);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * 채널의 '업로드' 재생목록에서 가장 최근 영상 ID를 가져온다.
+ * (업로드 재생목록은 기본적으로 최신순으로 정렬되어 있다.)
+ */
+export async function fetchRecentVideoIds(playlistId: string, maxResults: number) {
+  try {
+    const data = await ytFetch<YtPlaylistItemsResponse>('/playlistItems', {
+      part: 'contentDetails',
+      playlistId,
+      maxResults: String(maxResults),
+    });
+    return data.items.map((item) => item.contentDetails.videoId);
+  } catch {
+    // 비공개/삭제된 업로드 재생목록 등은 빈 배열로 처리한다.
+    return [];
+  }
 }
 
 export type { YtVideoItem };

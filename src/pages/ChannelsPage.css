@@ -26,12 +26,18 @@
 
 .channel-row {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  gap: 8px;
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
+}
+
+.channel-row__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .channel-row__rank {
@@ -71,6 +77,17 @@
   text-decoration: underline;
 }
 
+.channel-row__tier {
+  flex-shrink: 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--sub);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 .channel-row__ratio {
   flex-shrink: 0;
   font-size: 13px;
@@ -78,24 +95,32 @@
   color: var(--primary);
 }
 
-.channel-row__meta {
-  flex-shrink: 0;
+.channel-row__stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-left: 40px;
+}
+
+.channel-row__stat {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   font-size: 12px;
   font-weight: 600;
   color: var(--sub);
+  white-space: nowrap;
 }
 
-.channel-row__meta .icon {
+.channel-row__stat .icon {
   width: 14px;
   height: 14px;
   color: var(--sub);
 }
 
 @media (max-width: 640px) {
-  .channel-row {
+  .channel-row__top {
     flex-wrap: wrap;
     gap: 8px 12px;
   }
@@ -104,5 +129,8 @@
   }
   .channel-row__ratio {
     margin-left: 40px;
+  }
+  .channel-row__stats {
+    padding-left: 0;
   }
 }

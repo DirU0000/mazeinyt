@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import type { ChannelSurge, Country } from '../types/video';
+import type { ChannelSurge, ChannelSurgeMode, Country } from '../types/video';
 
-export function useChannelSurge(country: Country) {
+export function useChannelSurge(country: Country, mode: ChannelSurgeMode) {
   const [channels, setChannels] = useState<ChannelSurge[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +11,7 @@ export function useChannelSurge(country: Country) {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/channels?country=${country}`)
+    fetch(`/api/channels?country=${country}&mode=${mode}`)
       .then((res) => res.json())
       .then((data: { channels?: ChannelSurge[]; error?: string }) => {
         if (cancelled) return;
@@ -28,7 +28,7 @@ export function useChannelSurge(country: Country) {
     return () => {
       cancelled = true;
     };
-  }, [country]);
+  }, [country, mode]);
 
   return { channels, loading, error };
 }
