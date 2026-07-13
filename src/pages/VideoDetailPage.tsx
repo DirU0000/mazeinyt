@@ -7,6 +7,7 @@ import { useI18n } from '../i18n/I18nContext';
 import { useVideoDetail } from '../hooks/useVideoDetail';
 import { formatCount } from '../utils/format';
 import { getEngagementTier, getViralTier } from '../utils/videoInsights';
+import { formatDuration, getVideoType } from '../utils/videoType';
 import './VideoDetailPage.css';
 
 export default function VideoDetailPage() {
@@ -91,7 +92,13 @@ export default function VideoDetailPage() {
       </div>
 
       <h1 className="video-detail__title">{video.title}</h1>
-      <p className="video-detail__channel">{video.channelName}</p>
+      <p className="video-detail__channel">
+        {video.channelName}
+        <span className="video-detail__duration-badge">
+          {t(`videoType.${getVideoType(video.durationSeconds)}`)} ·{' '}
+          {formatDuration(video.durationSeconds)}
+        </span>
+      </p>
 
       <a
         className="btn video-detail__watch"

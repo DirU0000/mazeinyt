@@ -4,6 +4,7 @@ import type {
   Country,
   SortOption,
   UploadWindow,
+  VideoTypeFilter,
 } from '../types/video';
 
 export const countryOptions: { value: Country; labelKey: string }[] = [
@@ -41,6 +42,12 @@ export const uploadWindowOptions: { value: UploadWindow; labelKey: string }[] = 
   { value: 'week', labelKey: 'period.week' },
   { value: 'month', labelKey: 'period.month' },
   { value: 'year', labelKey: 'period.year' },
+];
+
+export const videoTypeOptions: { value: VideoTypeFilter; labelKey: string }[] = [
+  { value: 'all', labelKey: 'videoType.all' },
+  { value: 'short', labelKey: 'videoType.short' },
+  { value: 'longform', labelKey: 'videoType.longform' },
 ];
 
 /** value → 번역 키 매핑 (배지 등 옵션 목록 밖에서 라벨이 필요할 때). */

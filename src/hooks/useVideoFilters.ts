@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import type { Category, Country, SortOption, UploadWindow } from '../types/video';
+import type {
+  Category,
+  Country,
+  SortOption,
+  UploadWindow,
+  VideoTypeFilter,
+} from '../types/video';
 
 export function useVideoFilters() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -7,6 +13,7 @@ export function useVideoFilters() {
   const [category, setCategory] = useState<Category>('all');
   const [uploadWindow, setUploadWindow] = useState<UploadWindow>('week');
   const [sort, setSort] = useState<SortOption>('views-desc');
+  const [videoType, setVideoType] = useState<VideoTypeFilter>('all');
 
   return {
     searchQuery,
@@ -19,5 +26,7 @@ export function useVideoFilters() {
     setUploadWindow,
     sort,
     setSort,
+    videoType,
+    setVideoType,
   };
 }

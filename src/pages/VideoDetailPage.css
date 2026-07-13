@@ -42,9 +42,23 @@
 }
 
 .video-detail__channel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
   color: var(--sub);
   font-size: 14px;
   margin: 0 0 16px;
+}
+
+.video-detail__duration-badge {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--sub);
 }
 
 .video-detail__watch {

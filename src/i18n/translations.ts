@@ -54,15 +54,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.category': '카테고리',
     'filter.period': '기간',
     'filter.sort': '정렬',
+    'filter.videoType': '영상 길이',
     'filter.countryAria': '국가 필터',
     'filter.categoryAria': '카테고리 필터',
     'filter.periodAria': '업로드 기간 필터',
     'filter.sortAria': '정렬 기준',
+    'filter.videoTypeAria': '영상 길이 필터',
+    'filter.videoTypeNotice':
+      '영상 길이가 3분 이하이면 쇼츠, 3분을 초과하면 롱폼으로 분류했습니다.',
     'filter.channelMode': '기준',
     'filter.channelModeAria': '급상승 채널 비교 기준',
 
     'search.placeholder': '영상 제목, 채널명으로 검색',
     'search.aria': '영상 검색',
+
+    'videoType.all': '전체',
+    'videoType.short': '쇼츠',
+    'videoType.longform': '롱폼',
 
     'channelMode.segmented': '고정 구간',
     'channelMode.continuous': '전체 구간',
@@ -214,15 +222,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.category': 'Category',
     'filter.period': 'Period',
     'filter.sort': 'Sort',
+    'filter.videoType': 'Length',
     'filter.countryAria': 'Country filter',
     'filter.categoryAria': 'Category filter',
     'filter.periodAria': 'Upload period filter',
     'filter.sortAria': 'Sort order',
+    'filter.videoTypeAria': 'Video length filter',
+    'filter.videoTypeNotice':
+      'Videos 3 minutes or shorter are classified as Shorts; longer than 3 minutes as Longform.',
     'filter.channelMode': 'Compare by',
     'filter.channelModeAria': 'Rising channel comparison method',
 
     'search.placeholder': 'Search by title or channel',
     'search.aria': 'Search videos',
+
+    'videoType.all': 'All',
+    'videoType.short': 'Shorts',
+    'videoType.longform': 'Longform',
 
     'channelMode.segmented': 'Fixed tiers',
     'channelMode.continuous': 'Whole range',
@@ -375,15 +391,23 @@ export const translations: Record<Lang, Record<string, string>> = {
     'filter.category': 'カテゴリ',
     'filter.period': '期間',
     'filter.sort': '並び替え',
+    'filter.videoType': '動画の長さ',
     'filter.countryAria': '国フィルター',
     'filter.categoryAria': 'カテゴリフィルター',
     'filter.periodAria': '投稿期間フィルター',
     'filter.sortAria': '並び替え基準',
+    'filter.videoTypeAria': '動画の長さフィルター',
+    'filter.videoTypeNotice':
+      '動画の長さが3分以下はショート、3分を超える場合はロング動画として分類しています。',
     'filter.channelMode': '比較基準',
     'filter.channelModeAria': '急上昇チャンネルの比較方法',
 
     'search.placeholder': 'タイトル・チャンネル名で検索',
     'search.aria': '動画を検索',
+
+    'videoType.all': '全体',
+    'videoType.short': 'ショート',
+    'videoType.longform': 'ロング動画',
 
     'channelMode.segmented': '固定区間',
     'channelMode.continuous': '全体区間',

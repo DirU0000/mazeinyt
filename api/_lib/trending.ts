@@ -8,6 +8,7 @@ import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchMostPopular,
+  parseIsoDurationToSeconds,
   type YtVideoItem,
 } from './youtubeClient.js';
 
@@ -55,6 +56,7 @@ async function toVideos(
     likeCount: Number(item.statistics.likeCount ?? 0),
     subscriberCount: subMap.get(item.snippet.channelId) ?? 0,
     publishedAt: item.snippet.publishedAt,
+    durationSeconds: parseIsoDurationToSeconds(item.contentDetails.duration),
   }));
 }
 

@@ -17,6 +17,18 @@ interface YtVideoItem {
     viewCount?: string;
     likeCount?: string;
   };
+  contentDetails: {
+    /** ISO 8601 duration (예: "PT3M25S"). */
+    duration: string;
+  };
+}
+
+/** ISO 8601 duration("PT1H2M3S" 등)을 초로 변환한다. 형식이 이상하면 0을 반환한다. */
+export function parseIsoDurationToSeconds(iso: string): number {
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso);
+  if (!match) return 0;
+  const [, h, m, s] = match;
+  return (Number(h) || 0) * 3600 + (Number(m) || 0) * 60 + (Number(s) || 0);
 }
 
 interface YtVideosListResponse {
@@ -89,7 +101,7 @@ export async function fetchMostPopular(
 
   for (let page = 0; page < 2; page++) {
     const params: Record<string, string> = {
-      part: 'snippet,statistics',
+      part: 'snippet,statistics,contentDetails',
       chart: 'mostPopular',
       regionCode,
       maxResults: '50',
@@ -110,7 +122,7 @@ export async function fetchMostPopular(
 export async function fetchVideosByIds(ids: string[]): Promise<YtVideoItem[]> {
   if (ids.length === 0) return [];
   const data = await ytFetch<YtVideosListResponse>('/videos', {
-    part: 'snippet,statistics',
+    part: 'snippet,statistics,contentDetails',
     id: ids.join(','),
   });
   return data.items;

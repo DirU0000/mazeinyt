@@ -3,6 +3,7 @@ import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchVideosByIds,
+  parseIsoDurationToSeconds,
   type YtVideoItem,
 } from './youtubeClient.js';
 
@@ -44,6 +45,7 @@ export async function getVideoDetail(
     likeCount,
     subscriberCount,
     publishedAt: item.snippet.publishedAt,
+    durationSeconds: parseIsoDurationToSeconds(item.contentDetails.duration),
     daysSincePublished,
     viewsPerDay: Math.round(viewCount / daysSincePublished),
     engagementRate:

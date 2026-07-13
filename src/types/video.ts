@@ -15,6 +15,10 @@ export type SortOption = 'views-desc' | 'views-asc' | 'viral-ratio';
 
 export type UploadWindow = 'day' | 'week' | 'month' | 'year';
 
+/** 영상 길이 기준 분류. 쇼츠 정의(3분 이하)의 기준값은 src/utils/videoType.ts 참고. */
+export type VideoType = 'short' | 'longform';
+export type VideoTypeFilter = 'all' | VideoType;
+
 export interface Video {
   id: string;
   title: string;
@@ -27,6 +31,7 @@ export interface Video {
   likeCount: number;
   subscriberCount: number;
   publishedAt: string;
+  durationSeconds: number;
 }
 
 export interface VideoDetail {
@@ -40,6 +45,7 @@ export interface VideoDetail {
   likeCount: number;
   subscriberCount: number;
   publishedAt: string;
+  durationSeconds: number;
   daysSincePublished: number;
   viewsPerDay: number;
   engagementRate: number;

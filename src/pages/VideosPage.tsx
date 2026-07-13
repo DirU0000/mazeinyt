@@ -8,6 +8,7 @@ import { useI18n } from '../i18n/I18nContext';
 import { useTrendingVideos } from '../hooks/useTrendingVideos';
 import { useVideoFilters } from '../hooks/useVideoFilters';
 import { filterByUploadWindow } from '../utils/filterByUploadWindow';
+import { filterByVideoType } from '../utils/videoType';
 import { searchVideos } from '../utils/searchVideos';
 import { sortVideos } from '../utils/sortVideos';
 
@@ -27,6 +28,8 @@ export default function VideosPage() {
     setUploadWindow,
     sort,
     setSort,
+    videoType,
+    setVideoType,
   } = useVideoFilters();
   const { videos, fallback, loading, error } = useTrendingVideos(
     country,
@@ -39,10 +42,13 @@ export default function VideosPage() {
   const shown = useMemo(
     () =>
       sortVideos(
-        filterByUploadWindow(searchVideos(videos, searchQuery), uploadWindow),
+        filterByVideoType(
+          filterByUploadWindow(searchVideos(videos, searchQuery), uploadWindow),
+          videoType,
+        ),
         sort,
       ).slice(0, MAX_RESULTS),
-    [videos, searchQuery, uploadWindow, sort],
+    [videos, searchQuery, uploadWindow, sort, videoType],
   );
 
   const pageCount = Math.ceil(shown.length / PAGE_SIZE);
@@ -50,7 +56,7 @@ export default function VideosPage() {
   // 필터가 바뀌어 결과가 달라지면 1페이지로 되돌린다.
   useEffect(() => {
     setPage(0);
-  }, [country, category, uploadWindow, sort, searchQuery]);
+  }, [country, category, uploadWindow, sort, searchQuery, videoType]);
 
   const pageItems = useMemo(
     () => shown.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE),
@@ -93,6 +99,8 @@ export default function VideosPage() {
         onUploadWindowChange={setUploadWindow}
         sort={sort}
         onSortChange={setSort}
+        videoType={videoType}
+        onVideoTypeChange={setVideoType}
       />
       {loading && <p className="video-list__status">{t('common.loading')}</p>}
       {error && (

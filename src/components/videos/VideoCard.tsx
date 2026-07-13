@@ -3,6 +3,7 @@ import type { Video } from '../../types/video';
 import { countryLabelKey } from '../../data/options';
 import { useI18n } from '../../i18n/I18nContext';
 import { formatCount } from '../../utils/format';
+import { formatDuration } from '../../utils/videoType';
 import Icon from '../icons/Icon';
 import './VideoCard.css';
 
@@ -18,6 +19,9 @@ export default function VideoCard({ video }: { video: Video }) {
         </span>
         <span className="video-card__badge">
           {t(countryLabelKey[video.country])}
+        </span>
+        <span className="video-card__duration">
+          {formatDuration(video.durationSeconds)}
         </span>
       </div>
       <div className="video-card__body">

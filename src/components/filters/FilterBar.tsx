@@ -1,9 +1,16 @@
-import type { Category, Country, SortOption, UploadWindow } from '../../types/video';
+import type {
+  Category,
+  Country,
+  SortOption,
+  UploadWindow,
+  VideoTypeFilter,
+} from '../../types/video';
 import {
   categoryOptions,
   countryOptions,
   sortOptions,
   uploadWindowOptions,
+  videoTypeOptions,
 } from '../../data/options';
 import { useI18n } from '../../i18n/I18nContext';
 import FilterPills from './FilterPills';
@@ -22,6 +29,8 @@ export default function FilterBar({
   onUploadWindowChange,
   sort,
   onSortChange,
+  videoType,
+  onVideoTypeChange,
 }: {
   searchQuery: string;
   onSearchQueryChange: (value: string) => void;
@@ -33,6 +42,8 @@ export default function FilterBar({
   onUploadWindowChange: (value: UploadWindow) => void;
   sort: SortOption;
   onSortChange: (value: SortOption) => void;
+  videoType: VideoTypeFilter;
+  onVideoTypeChange: (value: VideoTypeFilter) => void;
 }) {
   const { t } = useI18n();
   return (
@@ -57,6 +68,18 @@ export default function FilterBar({
           onChange={onCategoryChange}
           ariaLabel={t('filter.categoryAria')}
         />
+      </div>
+      <div className="filter-bar__row filter-bar__row--stack">
+        <div className="filter-bar__row-inline">
+          <span className="filter-bar__label">{t('filter.videoType')}</span>
+          <FilterPills
+            options={videoTypeOptions}
+            value={videoType}
+            onChange={onVideoTypeChange}
+            ariaLabel={t('filter.videoTypeAria')}
+          />
+        </div>
+        <p className="filter-bar__notice">{t('filter.videoTypeNotice')}</p>
       </div>
       <div className="filter-bar__row filter-bar__row--sort">
         <span className="filter-bar__label">{t('filter.period')}</span>
