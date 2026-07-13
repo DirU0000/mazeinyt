@@ -45,8 +45,13 @@ function localApiPlugin(): Plugin {
           const { getChannelRanking } = await server.ssrLoadModule('/api/_lib/channels.ts')
           const url = new URL(req.url ?? '', 'http://localhost')
           const country = url.searchParams.get('country') ?? 'global'
-          const mode = url.searchParams.get('mode') ?? 'segmented'
-          const channels = await getChannelRanking(country, mode)
+          const mode = url.searchParams.get('mode') ?? 'continuous'
+          const min = url.searchParams.get('min')
+          const max = url.searchParams.get('max')
+          const customRange = mode === 'custom' && min && max
+            ? { min: Number(min), max: Number(max) }
+            : undefined
+          const channels = await getChannelRanking(country, mode, customRange)
           res.setHeader('Content-Type', 'application/json')
           res.end(JSON.stringify({ channels }))
         } catch (err) {

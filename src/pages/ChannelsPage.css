@@ -15,6 +15,41 @@
   border-bottom: 1px solid var(--border);
 }
 
+.channels-page__custom-range {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.channels-page__custom-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sub);
+}
+
+.channels-page__custom-field input {
+  width: 140px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.channels-page__custom-field input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
 .channel-list {
   list-style: none;
   margin: 0;

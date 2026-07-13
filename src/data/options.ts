@@ -14,8 +14,9 @@ export const countryOptions: { value: Country; labelKey: string }[] = [
 ];
 
 export const channelModeOptions: { value: ChannelSurgeMode; labelKey: string }[] = [
-  { value: 'segmented', labelKey: 'channelMode.segmented' },
   { value: 'continuous', labelKey: 'channelMode.continuous' },
+  { value: 'segmented', labelKey: 'channelMode.segmented' },
+  { value: 'custom', labelKey: 'channelMode.custom' },
 ];
 
 export const categoryOptions: { value: Category; labelKey: string }[] = [

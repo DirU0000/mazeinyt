@@ -20,11 +20,42 @@ function tierLabel(
   return t('channels.tierRange', { min: formatCount(min), max: formatCount(max) });
 }
 
+const DEFAULT_CUSTOM_MIN = 100_000;
+const DEFAULT_CUSTOM_MAX = 1_000_000;
+
 export default function ChannelsPage() {
   const { t } = useI18n();
   const [country, setCountry] = useState<Country>('global');
-  const [mode, setMode] = useState<ChannelSurgeMode>('segmented');
-  const { channels, loading, error } = useChannelSurge(country, mode);
+  const [mode, setMode] = useState<ChannelSurgeMode>('continuous');
+
+  const [minInput, setMinInput] = useState(String(DEFAULT_CUSTOM_MIN));
+  const [maxInput, setMaxInput] = useState(String(DEFAULT_CUSTOM_MAX));
+  const [customRange, setCustomRange] = useState<{ min: number; max: number }>({
+    min: DEFAULT_CUSTOM_MIN,
+    max: DEFAULT_CUSTOM_MAX,
+  });
+
+  const { channels, loading, error } = useChannelSurge(
+    country,
+    mode,
+    mode === 'custom' ? customRange : undefined,
+  );
+
+  const minValue = Number(minInput);
+  const maxValue = Number(maxInput);
+  const customRangeValid =
+    Number.isFinite(minValue) &&
+    Number.isFinite(maxValue) &&
+    minValue >= 0 &&
+    maxValue > minValue;
+
+  function applyCustomRange() {
+    if (customRangeValid) setCustomRange({ min: minValue, max: maxValue });
+  }
+
+  const showTier = mode === 'segmented' || mode === 'custom';
+  const showEmptyCustom =
+    mode === 'custom' && !loading && !error && channels.length === 0;
 
   return (
     <section>
@@ -52,11 +83,47 @@ export default function ChannelsPage() {
         />
       </div>
 
+      {mode === 'custom' && (
+        <div className="channels-page__custom-range">
+          <label className="channels-page__custom-field">
+            {t('channels.customMin')}
+            <input
+              type="number"
+              min={0}
+              step={1000}
+              value={minInput}
+              onChange={(e) => setMinInput(e.target.value)}
+            />
+          </label>
+          <label className="channels-page__custom-field">
+            {t('channels.customMax')}
+            <input
+              type="number"
+              min={0}
+              step={1000}
+              value={maxInput}
+              onChange={(e) => setMaxInput(e.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            className="btn"
+            disabled={!customRangeValid}
+            onClick={applyCustomRange}
+          >
+            {t('channels.customApply')}
+          </button>
+        </div>
+      )}
+
       {loading && <p className="video-list__status">{t('common.loading')}</p>}
       {error && (
         <p className="video-list__status video-list__status--error">
           {t('channels.error', { msg: error })}
         </p>
+      )}
+      {showEmptyCustom && (
+        <p className="video-list__status">{t('channels.customEmpty')}</p>
       )}
 
       {!loading && !error && (
@@ -75,7 +142,7 @@ export default function ChannelsPage() {
                 >
                   {ch.channelName}
                 </a>
-                {mode === 'segmented' && (
+                {showTier && (
                   <span className="channel-row__tier">
                     {tierLabel(t, ch.tierMin, ch.tierMax)}
                   </span>

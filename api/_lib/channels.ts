@@ -23,14 +23,10 @@ const RECENT_VIDEOS_PER_CHANNEL = 3;
 // 응답 지연·순간 부하를 관리한다.
 const FETCH_CONCURRENCY = 40;
 
-// 고정 구간(로그 스케일). 각 채널은 자신의 구독자 수가 속한 구간의 평균과 비교된다.
-const SUBSCRIBER_TIERS: { min: number; max: number | null }[] = [
-  { min: 1_000, max: 10_000 },
-  { min: 10_000, max: 100_000 },
-  { min: 100_000, max: 1_000_000 },
-  { min: 1_000_000, max: 10_000_000 },
-  { min: 10_000_000, max: null },
-];
+// 고정 구간의 폭. 구독자 수를 이 값 단위로 잘라 그룹화한다 (예: 10만~20만, 20만~30만).
+// 폭이 좁을수록 상위 구간일수록 같은 구간에 드는 채널이 적어지므로, 미스터비스트처럼
+// 압도적으로 큰 채널은 표본 부족(MIN_PEER_SAMPLE)으로 자연스럽게 제외되기 쉬워진다.
+const TIER_WIDTH = 100_000;
 
 // 또래 그룹(구간/윈도우) 표본이 이보다 적으면 평균이 통계적으로 불안정하므로
 // 아예 결과에서 제외한다. 실측 결과 1천~1만 구간은 국가 불문 0~2개, 1천만 이상
@@ -187,15 +183,11 @@ function toChannelSurge(
   };
 }
 
-/** '고정 구간' 모드: 로그 스케일 구간별로 그룹화해 구간 평균과 비교한다. */
+/** '고정 구간' 모드: 구독자 수를 TIER_WIDTH 단위로 잘라 그룹화해 구간 평균과 비교한다. */
 function rankSegmented(stats: ChannelStat[]): ChannelSurge[] {
-  const tierOf = (subs: number) =>
-    SUBSCRIBER_TIERS.find((t) => subs >= t.min && (t.max === null || subs < t.max)) ??
-    SUBSCRIBER_TIERS[SUBSCRIBER_TIERS.length - 1];
-
   const byTier = new Map<number, ChannelStat[]>();
   for (const s of stats) {
-    const tierIndex = SUBSCRIBER_TIERS.indexOf(tierOf(s.subscriberCount));
+    const tierIndex = Math.floor(s.subscriberCount / TIER_WIDTH);
     const group = byTier.get(tierIndex) ?? [];
     group.push(s);
     byTier.set(tierIndex, group);
@@ -205,7 +197,7 @@ function rankSegmented(stats: ChannelStat[]): ChannelSurge[] {
   for (const [tierIndex, group] of byTier) {
     // 구간 표본이 너무 적으면 평균이 불안정하므로 그 구간 전체를 제외한다.
     if (group.length < MIN_PEER_SAMPLE) continue;
-    const tier = SUBSCRIBER_TIERS[tierIndex];
+    const tier = { min: tierIndex * TIER_WIDTH, max: (tierIndex + 1) * TIER_WIDTH };
     const avg = group.reduce((a, b) => a + b.recentAvgViews, 0) / group.length;
     for (const s of group) {
       ranked.push(toChannelSurge(s, avg, tier));
@@ -213,6 +205,19 @@ function rankSegmented(stats: ChannelStat[]): ChannelSurge[] {
   }
 
   return ranked.sort((a, b) => b.diff - a.diff);
+}
+
+/** '사용자 지정 구간' 모드: 사용자가 지정한 [min, max] 범위 안의 채널들끼리만 비교한다. */
+function rankCustom(stats: ChannelStat[], min: number, max: number): ChannelSurge[] {
+  const group = stats.filter((s) => s.subscriberCount >= min && s.subscriberCount <= max);
+  // 지정한 범위에 채널이 너무 적으면 평균이 무의미하므로 빈 결과를 반환한다
+  // (프론트에서 "표본이 부족합니다"로 안내).
+  if (group.length < MIN_PEER_SAMPLE) return [];
+
+  const avg = group.reduce((a, b) => a + b.recentAvgViews, 0) / group.length;
+  return group
+    .map((s) => toChannelSurge(s, avg, { min, max }))
+    .sort((a, b) => b.diff - a.diff);
 }
 
 /** '전체 구간' 모드: 고정 구간 없이, 구독자 수가 로그 거리 기준으로 가까운 채널들과 비교한다. */
@@ -265,14 +270,24 @@ async function getRecentAvgViewsStatsCached(country: Country): Promise<ChannelSt
 export async function getChannelRanking(
   country: Country,
   mode: ChannelSurgeMode,
+  customRange?: { min: number; max: number },
 ): Promise<ChannelSurge[]> {
-  const cacheKey = `channelRank:${country}:${mode}`;
+  const cacheKey =
+    mode === 'custom' && customRange
+      ? `channelRank:${country}:custom:${customRange.min}-${customRange.max}`
+      : `channelRank:${country}:${mode}`;
   const cached = getCache<ChannelSurge[]>(cacheKey);
   if (cached) return cached;
 
   const stats = await getRecentAvgViewsStatsCached(country);
-  const ranked =
-    mode === 'segmented' ? rankSegmented(stats) : rankContinuous(stats);
+  let ranked: ChannelSurge[];
+  if (mode === 'segmented') {
+    ranked = rankSegmented(stats);
+  } else if (mode === 'custom' && customRange) {
+    ranked = rankCustom(stats, customRange.min, customRange.max);
+  } else {
+    ranked = rankContinuous(stats);
+  }
   const result = ranked.slice(0, RESULT_LIMIT);
 
   setCache(cacheKey, result, CHANNEL_RANK_CACHE_TTL_MS);

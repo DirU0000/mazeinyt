@@ -66,6 +66,7 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channelMode.segmented': '고정 구간',
     'channelMode.continuous': '전체 구간',
+    'channelMode.custom': '직접 설정',
 
     'country.global': '전체',
     'country.us': '미국',
@@ -120,7 +121,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.desc':
       '채널이 가장 최근에 올린 영상 최대 3개의 평균 조회수를, 비슷한 규모의 다른 채널들과 비교합니다. 그 차이가 클수록 지금 자기 규모 대비 이례적으로 잘 되고 있는 채널입니다. 아래 "기준"에서 비교 방식을 바꿀 수 있습니다.',
     'channels.guide':
-      '"고정 구간"은 구독자 1천~1만, 1만~10만처럼 정해진 구간 안에서만 비교하고, "전체 구간"은 구간을 나누지 않고 구독자 수가 비슷한 채널들을 그때그때 찾아 비교합니다. 구독자 수 제한 없이 전체 채널이 대상이라, 대형 채널도 자기 규모의 평소 성과를 크게 웃돌면 상위에 오를 수 있습니다.',
+      '"전체 구간"은 구간을 나누지 않고 구독자 수가 비슷한 채널들을 그때그때 찾아 비교하고, "고정 구간"은 구독자 10만 단위(10만~20만, 20만~30만처럼)로 잘라 같은 구간끼리만 비교합니다. "직접 설정"은 원하는 구독자 범위를 직접 입력해 그 범위 안에서만 비교합니다. 어느 방식이든 비교 대상(또래) 표본이 너무 적으면(5개 미만) 평균이 불안정해 결과에서 제외되므로, 구독자가 극단적으로 많아 진짜 또래가 거의 없는 채널은 자연스럽게 잘 나타나지 않습니다.',
     'channels.error': '채널을 불러오지 못했습니다: {msg}',
     'channels.ratio': '또래 평균 대비 {n}배',
     'channels.tierRange': '구독자 {min}~{max}',
@@ -128,6 +129,11 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.statSubscribers': '구독자 {n}',
     'channels.statRecentAvg': '최근 3개 평균 {n}',
     'channels.statPeerAvg': '또래 평균 {n}',
+    'channels.customMin': '최소 구독자 수',
+    'channels.customMax': '최대 구독자 수',
+    'channels.customApply': '적용',
+    'channels.customEmpty':
+      '이 범위에는 비교할 채널 표본이 부족합니다. 범위를 더 넓혀 다시 시도해보세요.',
 
     'video.back': '목록으로',
     'video.watchOnYoutube': 'YouTube에서 보기',
@@ -220,6 +226,7 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channelMode.segmented': 'Fixed tiers',
     'channelMode.continuous': 'Whole range',
+    'channelMode.custom': 'Custom range',
 
     'country.global': 'All',
     'country.us': 'USA',
@@ -275,7 +282,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.desc':
       "Compares each channel's average views over its last 3 uploads against similarly-sized channels. The bigger the gap, the more that channel is outperforming its own scale right now. Switch how peers are grouped under \"Compare by\" below.",
     'channels.guide':
-      '"Fixed tiers" compares within set subscriber bands (e.g. 1K–10K, 10K–100K), while "Whole range" finds similarly-sized channels dynamically with no fixed bands. Neither mode caps subscriber count, so a large channel can still rank high if it\'s wildly outperforming its own usual scale.',
+      '"Whole range" finds similarly-sized channels dynamically with no fixed bands. "Fixed tiers" cuts subscriber counts into 100K-wide bands (100K–200K, 200K–300K, etc.) and compares only within the same band. "Custom range" lets you type in your own subscriber range. In every mode, a peer group with fewer than 5 channels is too small to average reliably, so it\'s dropped — which is why channels with an extremely large subscriber count, with almost no true peers, rarely show up.',
     'channels.error': 'Failed to load channels: {msg}',
     'channels.ratio': '{n}× peer average',
     'channels.tierRange': '{min}–{max} subs',
@@ -283,6 +290,11 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.statSubscribers': '{n} subscribers',
     'channels.statRecentAvg': 'last 3 avg {n}',
     'channels.statPeerAvg': 'peer avg {n}',
+    'channels.customMin': 'Min subscribers',
+    'channels.customMax': 'Max subscribers',
+    'channels.customApply': 'Apply',
+    'channels.customEmpty':
+      "Not enough channels in this range to compare. Try widening it.",
 
     'video.back': 'Back to list',
     'video.watchOnYoutube': 'Watch on YouTube',
@@ -375,6 +387,7 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'channelMode.segmented': '固定区間',
     'channelMode.continuous': '全体区間',
+    'channelMode.custom': '範囲を指定',
 
     'country.global': '全体',
     'country.us': 'アメリカ',
@@ -429,7 +442,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.desc':
       'チャンネルが直近にアップロードした動画最大3本の平均再生回数を、同程度の規模の他チャンネルと比較します。差が大きいほど、今その規模にしては異例に伸びているチャンネルです。下の「比較基準」で比較方法を切り替えられます。',
     'channels.guide':
-      '「固定区間」は登録者数1千~1万、1万~10万のように決まった区間内だけで比較し、「全体区間」は区間を区切らず、その都度登録者数が近いチャンネルを探して比較します。どちらも登録者数の上限はないため、大規模チャンネルでも自分の規模の通常成績を大きく上回れば上位に入ることがあります。',
+      '「全体区間」は区間を区切らず、その都度登録者数が近いチャンネルを探して比較します。「固定区間」は登録者数を10万人単位（10万~20万、20万~30万など）で区切り、同じ区間内だけで比較します。「範囲を指定」では登録者数の範囲を自分で入力できます。いずれの方式でも比較対象(同規模チャンネル)が5件未満だと平均が不安定になるため結果から除外されます。そのため、登録者数が極端に多く本当の同規模チャンネルがほとんどいないチャンネルは、上位に出にくくなります。',
     'channels.error': 'チャンネルを読み込めませんでした: {msg}',
     'channels.ratio': '同規模平均比 {n}倍',
     'channels.tierRange': '登録者{min}~{max}',
@@ -437,6 +450,11 @@ export const translations: Record<Lang, Record<string, string>> = {
     'channels.statSubscribers': '登録者 {n}',
     'channels.statRecentAvg': '直近3本平均 {n}',
     'channels.statPeerAvg': '同規模平均 {n}',
+    'channels.customMin': '登録者数の下限',
+    'channels.customMax': '登録者数の上限',
+    'channels.customApply': '適用',
+    'channels.customEmpty':
+      'この範囲には比較できるチャンネルが十分にありません。範囲を広げて再度お試しください。',
 
     'video.back': '一覧に戻る',
     'video.watchOnYoutube': 'YouTubeで見る',

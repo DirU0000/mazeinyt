@@ -46,7 +46,7 @@ export interface VideoDetail {
   viralRatio: number;
 }
 
-export type ChannelSurgeMode = 'segmented' | 'continuous';
+export type ChannelSurgeMode = 'segmented' | 'continuous' | 'custom';
 
 export interface ChannelSurge {
   channelId: string;
@@ -61,7 +61,7 @@ export interface ChannelSurge {
   diff: number;
   /** recentAvgViews / peerAverageViews. 화면 표시용. */
   ratio: number;
-  /** 'segmented' 모드에서만 채워지는 구독자 구간 경계 (언어별 표기는 클라이언트에서 포맷). */
+  /** 'segmented'/'custom' 모드에서만 채워지는 구독자 구간 경계 (언어별 표기는 클라이언트에서 포맷). */
   tierMin?: number;
   tierMax?: number | null;
 }
