@@ -3,7 +3,12 @@ import type {
   ChannelSurgeMode,
   Country,
 } from '../../src/types/video.js';
-import { CHANNEL_RANK_CACHE_TTL_MS, getCache, setCache } from './cache.js';
+import {
+  CHANNEL_RANK_CACHE_TTL_MS,
+  getCache,
+  setCache,
+  withCache,
+} from './cache.js';
 import { getTrending } from './trending.js';
 import {
   fetchRecentVideoIds,
@@ -16,7 +21,9 @@ const MIN_SUBSCRIBERS = 1000;
 // 채널당 재생목록 조회가 추가로 필요해 비용이 크므로, 후보를 상위 N개로 제한해
 // 응답 시간을 예측 가능한 범위로 묶는다. getTrending()은 이미 조회수 내림차순이라
 // 상위 N개는 자연스럽게 "트렌드에서 실제로 존재감 있는" 채널 위주가 된다.
-const MAX_CANDIDATES = 120;
+// (YouTube API 일일 할당량 소진 사고 후 120 → 60으로 축소: 재계산 1회당
+// 호출 수를 절반으로 줄인다. 후보 60개로도 주요 구간의 최소 표본은 충분하다.)
+const MAX_CANDIDATES = 60;
 // 채널 하나당 최근 업로드 영상을 최대 이만큼 본다.
 const RECENT_VIDEOS_PER_CHANNEL = 3;
 // playlistItems.list는 채널당 1회씩 호출해야 하므로 동시 요청 수를 제한해
@@ -257,14 +264,12 @@ const RESULT_LIMIT = 15;
  * 국가 단위로 캐싱해, 같은 국가의 다른 모드를 요청해도 재계산하지 않는다.
  */
 async function getRecentAvgViewsStatsCached(country: Country): Promise<ChannelStat[]> {
-  const cacheKey = `channelStats:${country}`;
-  const cached = getCache<ChannelStat[]>(cacheKey);
-  if (cached) return cached;
-
-  const candidates = await getCandidateChannels(country);
-  const stats = await getRecentAvgViewsStats(candidates);
-  setCache(cacheKey, stats, CHANNEL_RANK_CACHE_TTL_MS);
-  return stats;
+  // 공유 캐시(withCache)로 서버리스 인스턴스 간 재계산을 막고,
+  // YouTube 할당량 초과 시에는 마지막 성공 통계로 랭킹을 계속 제공한다.
+  return withCache(`channelStats:${country}`, CHANNEL_RANK_CACHE_TTL_MS, async () => {
+    const candidates = await getCandidateChannels(country);
+    return getRecentAvgViewsStats(candidates);
+  });
 }
 
 export async function getChannelRanking(

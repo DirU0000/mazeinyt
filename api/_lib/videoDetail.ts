@@ -1,5 +1,5 @@
 import type { VideoDetail } from '../../src/types/video.js';
-import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
+import { TRENDING_CACHE_TTL_MS, withCache } from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchVideosByIds,
@@ -15,10 +15,14 @@ function pickThumbnail(item: YtVideoItem) {
 export async function getVideoDetail(
   videoId: string,
 ): Promise<VideoDetail | null> {
-  const cacheKey = `video:${videoId}`;
-  const cached = getCache<VideoDetail>(cacheKey);
-  if (cached) return cached;
+  return withCache(`video:${videoId}`, TRENDING_CACHE_TTL_MS, () =>
+    computeVideoDetail(videoId),
+  );
+}
 
+async function computeVideoDetail(
+  videoId: string,
+): Promise<VideoDetail | null> {
   const items = await fetchVideosByIds([videoId]);
   const item = items[0];
   if (!item) return null;
@@ -53,6 +57,5 @@ export async function getVideoDetail(
     viralRatio: Math.round((viewCount / Math.max(subscriberCount, 1)) * 100) / 100,
   };
 
-  setCache(cacheKey, detail, TRENDING_CACHE_TTL_MS);
   return detail;
 }

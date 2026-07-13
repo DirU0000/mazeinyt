@@ -4,7 +4,12 @@ import {
   filterHowtoBucket,
   SHARED_HOWTO_CATEGORIES,
 } from './categories.js';
-import { getCache, setCache, TRENDING_CACHE_TTL_MS } from './cache.js';
+import {
+  getCache,
+  setCache,
+  TRENDING_CACHE_TTL_MS,
+  withCache,
+} from './cache.js';
 import {
   fetchChannelSubscribers,
   fetchMostPopular,
@@ -141,17 +146,16 @@ export async function getTrendingForCountry(
   country: Exclude<Country, 'global'>,
   category: Category,
 ): Promise<Video[]> {
-  const cacheKey = `mapped:${country}:${category}`;
-  const cached = getCache<Video[]>(cacheKey);
-  if (cached) return cached;
-
-  const rawItems = await getRawItems(country, category);
-  const videos = await toVideos(rawItems, country);
-  // API 계약: 응답은 항상 조회수 내림차순. ('all'은 getAllPool에서 이미 정렬되지만
-  // 개별 카테고리는 YouTube 트렌드 차트 원본 순서라 여기서 통일 정렬해 준다.)
-  videos.sort((a, b) => b.viewCount - a.viewCount);
-  setCache(cacheKey, videos, TRENDING_CACHE_TTL_MS);
-  return videos;
+  // 공유 캐시(withCache)를 쓰므로 서버리스 콜드 스타트·다중 인스턴스에서도
+  // TTL 동안 YouTube API를 다시 부르지 않고, 상류 장애 시 stale 데이터로 버틴다.
+  return withCache(`mapped:${country}:${category}`, TRENDING_CACHE_TTL_MS, async () => {
+    const rawItems = await getRawItems(country, category);
+    const videos = await toVideos(rawItems, country);
+    // API 계약: 응답은 항상 조회수 내림차순. ('all'은 getAllPool에서 이미 정렬되지만
+    // 개별 카테고리는 YouTube 트렌드 차트 원본 순서라 여기서 통일 정렬해 준다.)
+    videos.sort((a, b) => b.viewCount - a.viewCount);
+    return videos;
+  });
 }
 
 export async function getTrending(
