@@ -4,6 +4,11 @@
     { "source": "/about", "destination": "/about.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/keywords", "destination": "/keywords.html" },
+    { "source": "/channels", "destination": "/channels.html" },
+    { "source": "/trend/kr", "destination": "/trend/kr.html" },
+    { "source": "/trend/us", "destination": "/trend/us.html" },
+    { "source": "/trend/jp", "destination": "/trend/jp.html" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

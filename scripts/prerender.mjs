@@ -1,14 +1,16 @@
-// 빌드 후 실행: 데이터 의존성이 없는 정적 라우트(개인정보처리방침/이용약관/소개/가이드)를
-// 크롤러·심사자가 JavaScript 없이도 실제 콘텐츠를 볼 수 있도록 정적 HTML로 미리 렌더링한다.
-// (dist/index.html은 <div id="root"></div>가 빈 채로 배포되어 애드센스 심사 등에서
-// "콘텐츠 없는 페이지"로 보일 위험이 있음 — vite.config.ts, index.html 참고)
+// 빌드 후 실행: 크롤러·심사자가 JavaScript 없이도 실제 콘텐츠를 볼 수 있도록 정적 HTML을 만든다.
+//
+// 두 종류를 생성한다.
+//  1) 정적 콘텐츠 페이지(privacy/terms/about/guide + 국가별 랜딩 /trend/*): 고유 본문을 통째로 프리렌더.
+//  2) 데이터 의존 페이지(홈 '/' · /keywords · /channels): 실시간 데이터는 넣지 못하지만,
+//     각 페이지의 제목·소개·가이드 문단과 내부 링크를 #root에 심어, 크롤러가 빈 껍데기 대신
+//     키워드가 담긴 실제 텍스트를 보게 한다. (JS 로드 시 createRoot가 #root를 다시 렌더링해 덮어씀)
 //
 // vercel.json의 rewrites는 파일시스템에 실제 파일이 있으면 그걸 우선 서빙하므로
-// dist/<route>/index.html을 생성해두면 rewrite보다 먼저 이 정적 파일이 서빙된다.
-// 클라이언트 쪽 main.tsx는 createRoot(하이드레이션 아님)를 쓰므로, JS가 로드되면
-// #root 내용을 새로 렌더링해 덮어쓸 뿐 하이드레이션 불일치 경고가 생기지 않는다.
+// dist/<route>.html을 만들어두면 SPA 폴백보다 먼저 이 정적 파일이 서빙된다.
+// 클라이언트 main.tsx는 createRoot(하이드레이션 아님)라서 하이드레이션 불일치 경고가 없다.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
@@ -25,19 +27,16 @@ const { guideContent } = await import(
 const { translations } = await import(
   pathToFileURL(path.join(root, 'src/i18n/translations.ts')).href
 );
+const { landingContent, LANDING_COUNTRIES } = await import(
+  pathToFileURL(path.join(root, 'src/i18n/landingContent.ts')).href
+);
 
 // index.html의 lang="ko" 기본 언어에 맞춰 한국어 콘텐츠로 프리렌더한다.
 // (다른 언어는 JS 로드 후 클라이언트에서 정상적으로 전환된다.)
 const LANG = 'ko';
 const SITE_URL = 'https://mazeinyt.com';
+const SITE_NAME = 'maze';
 const t = translations[LANG];
-
-const ROUTES = [
-  { path: 'privacy', seoKey: 'privacy', content: privacyContent[LANG] },
-  { path: 'terms', seoKey: 'terms', content: termsContent[LANG] },
-  { path: 'about', seoKey: 'about', content: aboutContent[LANG] },
-  { path: 'guide', seoKey: 'guide', content: guideContent[LANG] },
-];
 
 function escapeHtml(str) {
   return str
@@ -45,6 +44,37 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function renderLinkList(links) {
+  const items = links
+    .map((l) => `<li><a href="${l.href}">${escapeHtml(l.label)}</a></li>`)
+    .join('\n        ');
+  return `<nav class="prerender-links" aria-label="${escapeHtml(t['landing.related'])}">
+      <h2>${escapeHtml(t['landing.related'])}</h2>
+      <ul>
+        ${items}
+      </ul>
+    </nav>`;
+}
+
+// 데이터 의존 페이지가 프리렌더 시 공통으로 참고할 내부 링크 (국가별 랜딩 + 가이드).
+const COMMON_LINKS = [
+  { href: '/trend/kr', label: t['footer.krTrend'] },
+  { href: '/trend/us', label: t['footer.usTrend'] },
+  { href: '/trend/jp', label: t['footer.jpTrend'] },
+  { href: '/keywords', label: t['landing.toKeywords'] },
+  { href: '/channels', label: t['landing.toChannels'] },
+  { href: '/guide', label: t['landing.toGuide'] },
+];
+
+function renderIntroBlock({ h1, desc, guide, links }) {
+  return `<section class="prerender-intro">
+      <h1>${escapeHtml(h1)}</h1>
+      <p>${escapeHtml(desc)}</p>
+      <p>${escapeHtml(guide)}</p>
+      ${renderLinkList(links)}
+    </section>`;
 }
 
 function renderLegalPage(page) {
@@ -64,6 +94,43 @@ function renderLegalPage(page) {
   return `<article class="legal-page">
       <h1 class="legal-page__title">${escapeHtml(page.title)}</h1>
       ${updated}${sections}
+    </article>`;
+}
+
+function renderLandingPage(page, country) {
+  const intro = page.intro
+    .map((p) => `<p class="landing-page__intro">${escapeHtml(p)}</p>`)
+    .join('\n      ');
+  const sections = page.sections
+    .map(
+      (section) => `
+      <section class="landing-page__section">
+        <h2 class="landing-page__heading">${escapeHtml(section.heading)}</h2>
+        ${section.body.map((p) => `<p class="landing-page__body">${escapeHtml(p)}</p>`).join('\n        ')}
+      </section>`,
+    )
+    .join('\n');
+
+  const others = LANDING_COUNTRIES.filter((c) => c !== country)
+    .map(
+      (c) =>
+        `<a href="/trend/${c}">${escapeHtml(landingContent[c][LANG].title)}</a>`,
+    )
+    .join(' · ');
+
+  const relatedLinks = renderLinkList([
+    { href: '/keywords', label: t['landing.toKeywords'] },
+    { href: '/channels', label: t['landing.toChannels'] },
+    { href: '/guide', label: t['landing.toGuide'] },
+  ]);
+
+  return `<article class="landing-page">
+      <h1 class="landing-page__title">${escapeHtml(page.title)}</h1>
+      ${intro}
+      <p class="landing-page__cta"><a class="landing-page__cta-link" href="/">${escapeHtml(page.cta)} →</a></p>
+      ${sections}
+      <p class="landing-page__related-group"><strong>${escapeHtml(t['landing.otherCountries'])}:</strong> ${others}</p>
+      ${relatedLinks}
     </article>`;
 }
 
@@ -92,22 +159,82 @@ function patchHead(html, { title, description, url }) {
     );
 }
 
+function writePage({ file, title, description, url, bodyHtml }) {
+  const withHead = patchHead(template, { title, description, url });
+  const html = withHead.replace(
+    '<div id="root"></div>',
+    `<div id="root">${bodyHtml}</div>`,
+  );
+  const outPath = path.join(distDir, file);
+  mkdirSync(path.dirname(outPath), { recursive: true });
+  writeFileSync(outPath, html, 'utf8');
+  console.log(`prerendered: /${file}`);
+}
+
 const template = readFileSync(indexHtmlPath, 'utf8');
 
-for (const route of ROUTES) {
-  const rendered = renderLegalPage(route.content);
-  const withHead = patchHead(template, {
+// 1) 정적 법적/가이드 페이지
+const LEGAL_ROUTES = [
+  { path: 'privacy', seoKey: 'privacy', content: privacyContent[LANG] },
+  { path: 'terms', seoKey: 'terms', content: termsContent[LANG] },
+  { path: 'about', seoKey: 'about', content: aboutContent[LANG] },
+  { path: 'guide', seoKey: 'guide', content: guideContent[LANG] },
+];
+
+for (const route of LEGAL_ROUTES) {
+  writePage({
+    file: `${route.path}.html`,
     title: t[`seo.${route.seoKey}.title`],
     description: t[`seo.${route.seoKey}.description`],
     url: `${SITE_URL}/${route.path}`,
+    bodyHtml: renderLegalPage(route.content),
   });
-  const html = withHead.replace(
-    '<div id="root"></div>',
-    `<div id="root">${rendered}</div>`,
-  );
-  // 확장자 없는 URL(/guide)에 대한 정적 서버의 clean-URL 확장자 해석은
-  // 디렉토리+index.html 방식보다 평평한 .html 파일 방식이 더 안정적으로 매치된다
-  // (로컬 vite preview 검증: /guide는 매치 안 됐지만 /guide.html은 매치됨).
-  writeFileSync(path.join(distDir, `${route.path}.html`), html, 'utf8');
-  console.log(`prerendered: /${route.path}.html (${route.content.title})`);
 }
+
+// 2) 국가별 랜딩 페이지 (/trend/us · /trend/jp · /trend/kr)
+for (const country of LANDING_COUNTRIES) {
+  const page = landingContent[country][LANG];
+  writePage({
+    file: `trend/${country}.html`,
+    title: `${page.title} | ${SITE_NAME}`,
+    description: page.description,
+    url: `${SITE_URL}/trend/${country}`,
+    bodyHtml: renderLandingPage(page, country),
+  });
+}
+
+// 3) 데이터 의존 페이지: keywords · channels (별도 .html + rewrite)
+const DATA_ROUTES = [
+  { path: 'keywords', seoKey: 'keywords', h1Key: 'keywords.h1', descKey: 'keywords.desc', guideKey: 'keywords.guide' },
+  { path: 'channels', seoKey: 'channels', h1Key: 'channels.h1', descKey: 'channels.desc', guideKey: 'channels.guide' },
+];
+
+for (const route of DATA_ROUTES) {
+  writePage({
+    file: `${route.path}.html`,
+    title: t[`seo.${route.seoKey}.title`],
+    description: t[`seo.${route.seoKey}.description`],
+    url: `${SITE_URL}/${route.path}`,
+    bodyHtml: renderIntroBlock({
+      h1: t[route.h1Key],
+      desc: t[route.descKey],
+      guide: t[route.guideKey],
+      links: COMMON_LINKS,
+    }),
+  });
+}
+
+// 4) 홈('/'): dist/index.html의 빈 #root에 소개 문단 + 내부 링크를 심는다.
+//    (index.html은 SPA 폴백으로도 쓰이므로 head는 이미 홈 기준으로 맞춰져 있어 본문만 주입)
+const homeBody = renderIntroBlock({
+  h1: t['videos.h1'],
+  desc: t['videos.desc'],
+  guide: t['videos.guide'],
+  links: COMMON_LINKS,
+});
+const homeHtml = template.replace(
+  '<div id="root"></div>',
+  `<div id="root">${homeBody}</div>`,
+);
+writeFileSync(indexHtmlPath, homeHtml, 'utf8');
+console.log('prerendered: / (index.html)');

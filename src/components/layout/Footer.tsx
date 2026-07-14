@@ -7,6 +7,11 @@ export default function Footer() {
   return (
     <footer className="app-footer">
       <nav className="app-footer__links">
+        <Link to="/trend/kr">{t('footer.krTrend')}</Link>
+        <Link to="/trend/us">{t('footer.usTrend')}</Link>
+        <Link to="/trend/jp">{t('footer.jpTrend')}</Link>
+      </nav>
+      <nav className="app-footer__links">
         <Link to="/about">{t('footer.about')}</Link>
         <Link to="/guide">{t('footer.guide')}</Link>
         <Link to="/privacy">{t('footer.privacy')}</Link>

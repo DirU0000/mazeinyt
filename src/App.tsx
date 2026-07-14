@@ -7,6 +7,7 @@ import Seo from './components/seo/Seo';
 import VideosPage from './pages/VideosPage';
 import KeywordsPage from './pages/KeywordsPage';
 import ChannelsPage from './pages/ChannelsPage';
+import TrendCountryPage from './pages/TrendCountryPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import AboutPage from './pages/AboutPage';
@@ -32,6 +33,7 @@ function App() {
         <Route path="/video/:id" element={<VideoDetailPage />} />
         <Route path="/keywords" element={<KeywordsPage />} />
         <Route path="/channels" element={<ChannelsPage />} />
+        <Route path="/trend/:country" element={<TrendCountryPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/about" element={<AboutPage />} />

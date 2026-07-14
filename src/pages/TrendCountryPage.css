@@ -1,0 +1,87 @@
+.landing-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8px 0 40px;
+}
+
+.landing-page__title {
+  font-size: 26px;
+  margin: 0 0 12px;
+}
+
+.landing-page__intro {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+
+.landing-page__cta {
+  margin: 18px 0 28px;
+}
+
+.landing-page__cta-link {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.landing-page__cta-link:hover {
+  opacity: 0.9;
+}
+
+.landing-page__section {
+  margin-bottom: 22px;
+}
+
+.landing-page__heading {
+  font-size: 17px;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.landing-page__body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--sub);
+  margin: 0 0 8px;
+}
+
+.landing-page__related {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.landing-page__related-group {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--sub);
+  margin: 0 0 10px;
+}
+
+.landing-page__related-label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.landing-page__related-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.landing-page__related a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.landing-page__related a:hover {
+  text-decoration: underline;
+}

@@ -13,17 +13,17 @@ export const translations: Record<Lang, Record<string, string>> = {
   ko: {
     tagline: '전 세계 실시간 인기 유튜브 영상을 한눈에',
 
-    'seo.videos.title': 'maze — 미국·일본·한국 실시간 유튜브 인기 영상',
+    'seo.videos.title': '유튜브 순위 · 실시간 인기 급상승 영상 (미국·일본·한국) | maze',
     'seo.videos.description':
       '미국·일본·한국의 실시간 유튜브 트렌드 영상을 조회수·좋아요·구독자 수 기준으로 비교하고 검색해보세요.',
     'seo.videos.keywords':
       'maze, mazeinyt, 메이즈, 메이즈인유튜브, 유튜브 순위, 유튜브 트렌드, 유튜브 인기 급상승, 실시간 유튜브 순위, 유튜브 조회수 순위, 미국 일본 한국 유튜브',
-    'seo.keywords.title': 'maze — 국가별 트렌드 키워드',
+    'seo.keywords.title': '유튜브 트렌드 키워드 순위 · 국가별 인기 검색어 | maze',
     'seo.keywords.description':
       '미국·일본·한국 트렌드 영상 제목에서 자주 등장하는 키워드를 국가별로 비교합니다.',
     'seo.keywords.keywords':
       '유튜브 트렌드 키워드, 국가별 유튜브 키워드, 유튜브 인기 검색어',
-    'seo.channels.title': 'maze — 급상승 유튜브 채널',
+    'seo.channels.title': '유튜브 급상승 채널 순위 · 구독자 대비 조회수 떡상 | maze',
     'seo.channels.description':
       '구독자 대비 조회수가 폭발적으로 늘고 있는 급상승 유튜브 채널 순위를 국가별로 확인하세요.',
     'seo.channels.keywords':
@@ -34,7 +34,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'maze 서비스의 이용약관입니다.',
     'seo.about.title': 'maze — 소개',
     'seo.about.description': 'maze 서비스 소개 페이지입니다.',
-    'seo.guide.title': 'maze — 유튜브 트렌드로 콘텐츠 아이디어 찾는 법',
+    'seo.guide.title': '유튜브 트렌드 보는 법 · 인기 영상으로 콘텐츠 아이디어 찾기 | maze',
     'seo.guide.description':
       '조회수·구독자 대비 조회수·트렌드 키워드를 콘텐츠 기획에 활용하는 방법을 정리한 가이드입니다.',
     'seo.board.title': 'maze — 게시판',
@@ -47,6 +47,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.keywords': '트렌드 키워드',
     'tab.channels': '급상승 채널',
     'tab.board': '게시판',
+
+    'landing.related': '함께 보면 좋은 페이지',
+    'landing.otherCountries': '다른 국가 순위',
+    'landing.toKeywords': '국가별 트렌드 키워드',
+    'landing.toChannels': '급상승 유튜브 채널',
+    'landing.toGuide': '유튜브 트렌드 보는 법 가이드',
 
     'board.h1': '게시판',
     'board.desc':
@@ -81,6 +87,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'footer.guide': '활용 가이드',
     'footer.privacy': '개인정보처리방침',
     'footer.terms': '이용약관',
+    'footer.krTrend': '한국 유튜브 순위',
+    'footer.usTrend': '미국 유튜브 순위',
+    'footer.jpTrend': '일본 유튜브 순위',
     'footer.copyright': '© 2026 maze. 유튜브 공식 API를 사용하며, YouTube·Google과 제휴 관계가 아닙니다.',
 
     'filter.country': '국가',
@@ -213,17 +222,17 @@ export const translations: Record<Lang, Record<string, string>> = {
   en: {
     tagline: 'Trending YouTube videos worldwide, at a glance',
 
-    'seo.videos.title': 'maze — Trending YouTube Videos in the US, Japan & Korea',
+    'seo.videos.title': 'YouTube Trending Rankings · Real-Time Popular Videos (US, Japan, Korea) | maze',
     'seo.videos.description':
       'Compare and search real-time trending YouTube videos from the US, Japan, and Korea by views, likes, and subscriber count.',
     'seo.videos.keywords':
       'youtube trending, youtube trending videos, real-time youtube rankings, youtube views ranking, US Japan Korea youtube',
-    'seo.keywords.title': 'maze — Trending Keywords by Country',
+    'seo.keywords.title': 'YouTube Trending Keywords by Country · Popular Search Terms | maze',
     'seo.keywords.description':
       'See which words appear most often in trending video titles across the US, Japan, and Korea.',
     'seo.keywords.keywords':
       'youtube trending keywords, youtube keywords by country, trending search terms',
-    'seo.channels.title': 'maze — Rising YouTube Channels',
+    'seo.channels.title': 'Rising YouTube Channels · Views-to-Subscriber Breakouts | maze',
     'seo.channels.description':
       'Discover rising YouTube channels whose trending videos are outperforming their subscriber count, by country.',
     'seo.channels.keywords':
@@ -234,7 +243,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': "maze's terms of service.",
     'seo.about.title': 'maze — About',
     'seo.about.description': 'About the maze service.',
-    'seo.guide.title': 'maze — How to Find Content Ideas from YouTube Trends',
+    'seo.guide.title': 'How to Read YouTube Trends · Find Content Ideas | maze',
     'seo.guide.description':
       'A guide to using view counts, views-to-subscribers ratio, and trending keywords to plan your next video.',
     'seo.board.title': 'maze — Community Board',
@@ -247,6 +256,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.keywords': 'Trending Keywords',
     'tab.channels': 'Rising Channels',
     'tab.board': 'Board',
+
+    'landing.related': 'Related pages',
+    'landing.otherCountries': 'Rankings by country',
+    'landing.toKeywords': 'Trending keywords by country',
+    'landing.toChannels': 'Rising YouTube channels',
+    'landing.toGuide': 'How to read YouTube trends',
 
     'board.h1': 'Community Board',
     'board.desc':
@@ -281,6 +296,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'footer.guide': 'Guide',
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Service',
+    'footer.krTrend': 'Korea YouTube rankings',
+    'footer.usTrend': 'US YouTube rankings',
+    'footer.jpTrend': 'Japan YouTube rankings',
     'footer.copyright':
       '© 2026 maze. Uses the official YouTube API; not affiliated with YouTube or Google.',
 
@@ -416,16 +434,16 @@ export const translations: Record<Lang, Record<string, string>> = {
   ja: {
     tagline: '世界の人気YouTube動画をひと目で',
 
-    'seo.videos.title': 'maze — アメリカ・日本・韓国の人気YouTube動画',
+    'seo.videos.title': 'YouTubeランキング · リアルタイム人気・急上昇動画（アメリカ・日本・韓国）| maze',
     'seo.videos.description':
       'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を再生回数・高評価数・登録者数で比較・検索できます。',
     'seo.videos.keywords':
       'YouTube トレンド, YouTube 急上昇, リアルタイム YouTube ランキング, YouTube 再生回数ランキング',
-    'seo.keywords.title': 'maze — 国別トレンドキーワード',
+    'seo.keywords.title': 'YouTubeトレンドキーワード · 国別の人気検索ワード | maze',
     'seo.keywords.description':
       'アメリカ・日本・韓国のトレンド動画タイトルに頻出するキーワードを国別に比較します。',
     'seo.keywords.keywords': 'YouTube トレンドキーワード, 国別YouTubeキーワード',
-    'seo.channels.title': 'maze — 急上昇YouTubeチャンネル',
+    'seo.channels.title': 'YouTube急上昇チャンネル · 登録者比の再生回数で見つける | maze',
     'seo.channels.description':
       '登録者数に対して再生回数が急増している急上昇YouTubeチャンネルを国別に確認できます。',
     'seo.channels.keywords':
@@ -436,7 +454,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'seo.terms.description': 'mazeの利用規約です。',
     'seo.about.title': 'maze — 概要',
     'seo.about.description': 'mazeサービスの紹介ページです。',
-    'seo.guide.title': 'maze — YouTubeトレンドからコンテンツのヒントを見つける方法',
+    'seo.guide.title': 'YouTubeトレンドの見方 · コンテンツのヒントを見つける | maze',
     'seo.guide.description':
       '再生回数・登録者比の再生回数・トレンドキーワードを動画企画に活用する方法をまとめたガイドです。',
     'seo.board.title': 'maze — 掲示板',
@@ -449,6 +467,12 @@ export const translations: Record<Lang, Record<string, string>> = {
     'tab.keywords': 'トレンドキーワード',
     'tab.channels': '急上昇チャンネル',
     'tab.board': '掲示板',
+
+    'landing.related': 'あわせて見たいページ',
+    'landing.otherCountries': '国別ランキング',
+    'landing.toKeywords': '国別トレンドキーワード',
+    'landing.toChannels': '急上昇YouTubeチャンネル',
+    'landing.toGuide': 'YouTubeトレンドの見方ガイド',
 
     'board.h1': '掲示板',
     'board.desc':
@@ -483,6 +507,9 @@ export const translations: Record<Lang, Record<string, string>> = {
     'footer.guide': '活用ガイド',
     'footer.privacy': 'プライバシーポリシー',
     'footer.terms': '利用規約',
+    'footer.krTrend': '韓国のYouTubeランキング',
+    'footer.usTrend': 'アメリカのYouTubeランキング',
+    'footer.jpTrend': '日本のYouTubeランキング',
     'footer.copyright':
       '© 2026 maze. 公式YouTube APIを使用しており、YouTube・Googleとは提携関係にありません。',
 
