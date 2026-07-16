@@ -154,6 +154,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'videos.fallbackNotice':
       '이 지역에서는 해당 카테고리의 트렌드 자료가 적어, 글로벌 순위를 대신 표시합니다.',
+    'videos.countryForeignNote':
+      '선택한 국가에서 인기 있는 영상을 표시합니다. 외국 영상이라도 해당 국가 시청자에게 인기가 높으면 순위에 포함됩니다.',
     'videos.tooLittleNotice':
       '이 카테고리는 전 세계적으로도 트렌드 데이터가 매우 적습니다. 현재 이용 가능한 영상만 표시합니다.',
     'videos.emptyCategoryHint':
@@ -369,6 +371,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': 'No videos match your filters.',
     'videos.fallbackNotice':
       'Not enough local trending data for this category, so global rankings are shown instead.',
+    'videos.countryForeignNote':
+      'Shows videos trending in the selected country. Foreign-language videos may appear if they are popular with local viewers.',
     'videos.tooLittleNotice':
       'Trending data for this category is very scarce worldwide. Showing only what is currently available.',
     'videos.emptyCategoryHint':
@@ -585,6 +589,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': '条件に合う動画がありません。',
     'videos.fallbackNotice':
       'この地域ではこのカテゴリのトレンドデータが少ないため、グローバルランキングを表示しています。',
+    'videos.countryForeignNote':
+      '選択した国でトレンドの動画を表示します。外国語の動画でも、その国の視聴者に人気があればランキングに含まれます。',
     'videos.tooLittleNotice':
       'このカテゴリのトレンドデータは世界的にも非常に少ないです。現在利用可能な動画のみ表示しています。',
     'videos.emptyCategoryHint':

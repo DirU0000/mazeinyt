@@ -110,6 +110,9 @@ export default function VideosPage() {
       )}
       {!loading && !error && (
         <>
+          {country !== 'global' && (
+            <p className="video-list__notice">{t('videos.countryForeignNote')}</p>
+          )}
           {videos.length > 0 && fallback && (
             <p className="video-list__notice">{t('videos.fallbackNotice')}</p>
           )}
