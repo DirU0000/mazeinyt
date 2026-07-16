@@ -7,8 +7,14 @@ import { formatDuration } from '../../utils/videoType';
 import Icon from '../icons/Icon';
 import './VideoCard.css';
 
+const LONG_TREND_DAYS = 14;
+
 export default function VideoCard({ video }: { video: Video }) {
   const { t } = useI18n();
+  const daysSince = Math.floor(
+    (Date.now() - new Date(video.publishedAt).getTime()) / 86_400_000,
+  );
+  const isLongTrend = daysSince >= LONG_TREND_DAYS;
 
   return (
     <Link className="video-card" to={`/video/${video.id}`}>
@@ -20,6 +26,11 @@ export default function VideoCard({ video }: { video: Video }) {
         <span className="video-card__badge">
           {t(countryLabelKey[video.country])}
         </span>
+        {isLongTrend && (
+          <span className="video-card__trend-badge">
+            {t('video.badge.longTrend')}
+          </span>
+        )}
         <span className="video-card__duration">
           {formatDuration(video.durationSeconds)}
         </span>

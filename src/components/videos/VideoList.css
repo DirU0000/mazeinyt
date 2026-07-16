@@ -41,3 +41,12 @@
   font-weight: 700;
   flex-shrink: 0;
 }
+
+.video-list__notice--warning {
+  border-left-color: #d97706;
+}
+
+.video-list__notice--warning::before {
+  content: '⚠';
+  color: #d97706;
+}

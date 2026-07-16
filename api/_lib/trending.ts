@@ -185,10 +185,15 @@ export async function getTrending(
 // (예: YouTube가 한국의 '교육' mostPopular 차트를 제공하지 않아 결과가 0개인 경우)
 const MIN_CATEGORY_RESULTS = 10;
 
+// fallback 이후에도 이 개수 미만이면 프론트에서 "자료가 매우 적음" 경고를 띄운다.
+const MIN_SCARCE_THRESHOLD = 3;
+
 export interface TrendingResult {
   videos: Video[];
   /** 현지 자료 부족으로 글로벌 순위를 대신 보여줬을 때만 채워진다. */
   fallback: { from: Country; localCount: number } | null;
+  /** fallback 이후에도 결과가 MIN_SCARCE_THRESHOLD 미만인 경우 true. */
+  tooLittle: boolean;
 }
 
 /**
@@ -210,9 +215,14 @@ export async function getTrendingWithFallback(
       return {
         videos: globalVideos,
         fallback: { from: country, localCount: videos.length },
+        tooLittle: globalVideos.length < MIN_SCARCE_THRESHOLD,
       };
     }
   }
 
-  return { videos, fallback: null };
+  return {
+    videos,
+    fallback: null,
+    tooLittle: isSpecificCategory && videos.length < MIN_SCARCE_THRESHOLD,
+  };
 }

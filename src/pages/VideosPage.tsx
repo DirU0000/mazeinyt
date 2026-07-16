@@ -31,7 +31,7 @@ export default function VideosPage() {
     videoType,
     setVideoType,
   } = useVideoFilters();
-  const { videos, fallback, loading, error } = useTrendingVideos(
+  const { videos, fallback, tooLittle, loading, error } = useTrendingVideos(
     country,
     category,
   );
@@ -110,10 +110,22 @@ export default function VideosPage() {
       )}
       {!loading && !error && (
         <>
-          {fallback && (
+          {videos.length > 0 && fallback && (
             <p className="video-list__notice">{t('videos.fallbackNotice')}</p>
           )}
-          <VideoList videos={pageItems} />
+          {videos.length > 0 && tooLittle && (
+            <p className="video-list__notice video-list__notice--warning">
+              {t('videos.tooLittleNotice')}
+            </p>
+          )}
+          <VideoList
+            videos={pageItems}
+            emptyText={
+              category === 'education' || category === 'beauty'
+                ? t('videos.emptyCategoryHint')
+                : undefined
+            }
+          />
           <Pagination page={page} pageCount={pageCount} onChange={setPage} />
         </>
       )}

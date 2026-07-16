@@ -148,12 +148,17 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'videos.h1': '실시간 인기 유튜브 영상',
     'videos.desc':
-      '미국·일본·한국의 실시간 유튜브 트렌드 영상을 한곳에서 모아, 조회수·좋아요·구독자 수 기준으로 비교하고 검색할 수 있습니다. 국가·카테고리·업로드 기간별로 필터링해 지금 가장 화제가 되는 영상을 확인해보세요.',
+      '미국·일본·한국의 실시간 유튜브 트렌드 영상을 한곳에서 모아, 조회수·좋아요·구독자 수 기준으로 비교하고 검색할 수 있습니다. 국가·카테고리·업로드 기간별로 필터링해 지금 가장 화제가 되는 영상을 확인해보세요. 기본 순위는 YouTube API 기준 누적 조회수 내림차순입니다.',
     'videos.guide':
       '정렬 기준을 "구독자 대비 조회수"로 바꾸면, 구독자 수는 적지만 영상이 폭발적으로 터진 채널을 찾을 수 있습니다. 이런 영상은 대형 채널의 트렌드보다 소규모 채널이 따라 하기 쉬운 주제·연출인 경우가 많아, 콘텐츠 아이디어를 얻기에 더 유용합니다. 같은 카테고리를 국가별로 바꿔가며 비교하면, 아직 한국에 들어오지 않은 해외 트렌드를 먼저 포착할 수도 있습니다.',
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'videos.fallbackNotice':
       '이 지역에서는 해당 카테고리의 트렌드 자료가 적어, 글로벌 순위를 대신 표시합니다.',
+    'videos.tooLittleNotice':
+      '이 카테고리는 전 세계적으로도 트렌드 데이터가 매우 적습니다. 현재 이용 가능한 영상만 표시합니다.',
+    'videos.emptyCategoryHint':
+      '현재 이 카테고리에 해당하는 YouTube 트렌드 영상이 없습니다. 카테고리를 "전체"로 바꾸거나 다른 국가를 선택해보세요.',
+    'video.badge.longTrend': '장기 인기',
     'video.error': '영상을 불러오지 못했습니다: {msg}',
 
     'pagination.prev': '이전',
@@ -358,12 +363,17 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'videos.h1': 'Trending YouTube Videos Right Now',
     'videos.desc':
-      "Compare real-time trending YouTube videos from the US, Japan, and Korea in one place, ranked by views, likes, and subscriber count. Filter by country, category, and upload window to see what's buzzing right now.",
+      "Compare real-time trending YouTube videos from the US, Japan, and Korea in one place, ranked by views, likes, and subscriber count. Filter by country, category, and upload window to see what's buzzing right now. The default ranking is sorted by total view count as reported by the YouTube API.",
     'videos.guide':
       "Switch the sort to \"views vs. subscribers\" to surface channels with a small subscriber base whose video suddenly took off. These are often easier to replicate than a mega-channel's trend, since the format or topic isn't tied to a huge production budget. Comparing the same category across countries can also help you spot a trend before it reaches your home market.",
     'video.empty': 'No videos match your filters.',
     'videos.fallbackNotice':
       'Not enough local trending data for this category, so global rankings are shown instead.',
+    'videos.tooLittleNotice':
+      'Trending data for this category is very scarce worldwide. Showing only what is currently available.',
+    'videos.emptyCategoryHint':
+      'No trending YouTube videos found for this category right now. Try switching to "All" or selecting a different country.',
+    'video.badge.longTrend': 'Trending long',
     'video.error': 'Failed to load videos: {msg}',
 
     'pagination.prev': 'Prev',
@@ -569,12 +579,17 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     'videos.h1': 'リアルタイム人気YouTube動画',
     'videos.desc':
-      'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を一箇所にまとめ、再生回数・高評価数・登録者数で比較・検索できます。国・カテゴリ・投稿期間で絞り込んで、今話題の動画をチェックしましょう。',
+      'アメリカ・日本・韓国のリアルタイムのトレンドYouTube動画を一箇所にまとめ、再生回数・高評価数・登録者数で比較・検索できます。国・カテゴリ・投稿期間で絞り込んで、今話題の動画をチェックしましょう。デフォルトのランキングはYouTube APIが返す累積再生回数の降順です。',
     'videos.guide':
       '並べ替えを「登録者比の再生回数順」に変えると、登録者数は少ないのに動画が爆発的に伸びたチャンネルを見つけられます。こうした動画は大手チャンネルのトレンドより、企画や演出を真似しやすい場合が多く、コンテンツのヒントとして参考になります。同じカテゴリを国ごとに切り替えて比較すれば、自国にまだ来ていない海外のトレンドをいち早く見つけることもできます。',
     'video.empty': '条件に合う動画がありません。',
     'videos.fallbackNotice':
       'この地域ではこのカテゴリのトレンドデータが少ないため、グローバルランキングを表示しています。',
+    'videos.tooLittleNotice':
+      'このカテゴリのトレンドデータは世界的にも非常に少ないです。現在利用可能な動画のみ表示しています。',
+    'videos.emptyCategoryHint':
+      'このカテゴリに該当するトレンド動画が現在ありません。カテゴリを「全体」に切り替えるか、別の国を選んでみてください。',
+    'video.badge.longTrend': 'ロング人気',
     'video.error': '動画を読み込めませんでした: {msg}',
 
     'pagination.prev': '前へ',

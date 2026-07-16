@@ -62,6 +62,19 @@
   border-radius: 999px;
 }
 
+.video-card__trend-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(217, 119, 6, 0.88);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  z-index: 1;
+  padding: 3px 7px;
+  border-radius: 999px;
+}
+
 .video-card__duration {
   position: absolute;
   bottom: 8px;

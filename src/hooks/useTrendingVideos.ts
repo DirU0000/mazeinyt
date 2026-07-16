@@ -10,12 +10,14 @@ export interface TrendingFallback {
 interface TrendingResponse {
   videos?: Video[];
   fallback?: TrendingFallback | null;
+  tooLittle?: boolean;
   error?: string;
 }
 
 export function useTrendingVideos(country: Country, category: Category) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [fallback, setFallback] = useState<TrendingFallback | null>(null);
+  const [tooLittle, setTooLittle] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,6 +33,7 @@ export function useTrendingVideos(country: Country, category: Category) {
         if (data.error) throw new Error(data.error);
         setVideos(data.videos ?? []);
         setFallback(data.fallback ?? null);
+        setTooLittle(data.tooLittle ?? false);
       })
       .catch((err: Error) => {
         if (!cancelled) setError(err.message);
@@ -44,5 +47,5 @@ export function useTrendingVideos(country: Country, category: Category) {
     };
   }, [country, category]);
 
-  return { videos, fallback, loading, error };
+  return { videos, fallback, tooLittle, loading, error };
 }

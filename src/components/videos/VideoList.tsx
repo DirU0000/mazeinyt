@@ -3,11 +3,17 @@ import { useI18n } from '../../i18n/I18nContext';
 import VideoCard from './VideoCard';
 import './VideoList.css';
 
-export default function VideoList({ videos }: { videos: Video[] }) {
+export default function VideoList({
+  videos,
+  emptyText,
+}: {
+  videos: Video[];
+  emptyText?: string;
+}) {
   const { t } = useI18n();
 
   if (videos.length === 0) {
-    return <p className="video-list__empty">{t('video.empty')}</p>;
+    return <p className="video-list__empty">{emptyText ?? t('video.empty')}</p>;
   }
 
   return (
