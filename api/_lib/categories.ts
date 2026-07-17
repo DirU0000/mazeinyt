@@ -22,34 +22,28 @@ export const SHARED_HOWTO_CATEGORIES: Exclude<Category, 'all'>[] = [
 ];
 
 const FOOD_KEYWORDS = [
-  '요리',
-  '레시피',
-  '먹방',
-  '쿠킹',
-  '베이킹',
-  'cook',
-  'recipe',
-  'food',
-  'baking',
-  'kitchen',
-  '料理',
-  'グルメ',
-  '食べ',
-  'レシピ',
+  // 한국어
+  '요리', '레시피', '먹방', '쿠킹', '베이킹', '음식', '맛집', '식당', '맛있', '먹는', '간식', '디저트',
+  // 영어
+  'cook', 'recipe', 'food', 'baking', 'kitchen',
+  'eat', 'eating', 'meal', 'restaurant', 'snack', 'dessert',
+  'tasty', 'delicious', 'yummy', 'dinner', 'lunch', 'breakfast',
+  // 일본어
+  '料理', 'グルメ', '食べ', 'レシピ', 'ご飯', 'ラーメン', 'お菓子', 'レストラン', 'おいしい',
 ];
 
 const BEAUTY_KEYWORDS = [
-  '메이크업',
-  '뷰티',
-  '화장',
-  '스킨케어',
-  'makeup',
-  'beauty',
-  'skincare',
-  'cosmetic',
-  'メイク',
-  'コスメ',
-  '美容',
+  // 한국어
+  '메이크업', '뷰티', '화장', '스킨케어', '네일', '헤어', '립스틱', '마스카라', '아이라이너', '파운데이션', '선크림', '색조',
+  // 영어
+  'makeup', 'beauty', 'skincare', 'skin care', 'cosmetic',
+  'nail art', 'nail polish', 'nail tutorial', 'nail design',
+  'hair care', 'haircut', 'hair color', 'hair dye', 'hairstyle',
+  'foundation', 'lipstick', 'lip gloss', 'mascara', 'eyeshadow', 'eye shadow',
+  'blush', 'highlighter', 'contour', 'eyelash', 'eyebrow', 'brow tutorial',
+  'glam', 'moisturizer', 'serum', 'sunscreen', 'perfume', 'fragrance', 'toner', 'face mask',
+  // 일본어
+  'メイク', 'コスメ', '美容', 'ネイル', 'ヘアケア', 'ヘアカラー', 'リップ', 'マスカラ', 'アイシャドウ', 'ファンデ', '日焼け止め',
 ];
 
 function titleMatches(title: string, keywords: string[]) {

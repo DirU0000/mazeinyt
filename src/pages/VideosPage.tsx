@@ -114,7 +114,7 @@ export default function VideosPage() {
             <p className="video-list__notice">{t('videos.countryForeignNote')}</p>
           )}
           {videos.length > 0 && fallback && (
-            <p className="video-list__notice">{t('videos.fallbackNotice')}</p>
+            <p className="video-list__notice">{t('videos.fallbackNotice', { n: fallback.localCount })}</p>
           )}
           {videos.length > 0 && tooLittle && (
             <p className="video-list__notice video-list__notice--warning">

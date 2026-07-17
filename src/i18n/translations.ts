@@ -153,7 +153,7 @@ export const translations: Record<Lang, Record<string, string>> = {
       '정렬 기준을 "구독자 대비 조회수"로 바꾸면, 구독자 수는 적지만 영상이 폭발적으로 터진 채널을 찾을 수 있습니다. 이런 영상은 대형 채널의 트렌드보다 소규모 채널이 따라 하기 쉬운 주제·연출인 경우가 많아, 콘텐츠 아이디어를 얻기에 더 유용합니다. 같은 카테고리를 국가별로 바꿔가며 비교하면, 아직 한국에 들어오지 않은 해외 트렌드를 먼저 포착할 수도 있습니다.',
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'videos.fallbackNotice':
-      '이 지역에서는 해당 카테고리의 트렌드 자료가 적어, 글로벌 순위를 대신 표시합니다.',
+      '이 카테고리의 현지 트렌드 자료가 부족해({n}개) 글로벌 순위를 대신 표시합니다.',
     'videos.countryForeignNote':
       '선택한 국가에서 인기 있는 영상을 표시합니다. 외국 영상이라도 해당 국가 시청자에게 인기가 높으면 순위에 포함됩니다.',
     'videos.tooLittleNotice':
@@ -370,7 +370,7 @@ export const translations: Record<Lang, Record<string, string>> = {
       "Switch the sort to \"views vs. subscribers\" to surface channels with a small subscriber base whose video suddenly took off. These are often easier to replicate than a mega-channel's trend, since the format or topic isn't tied to a huge production budget. Comparing the same category across countries can also help you spot a trend before it reaches your home market.",
     'video.empty': 'No videos match your filters.',
     'videos.fallbackNotice':
-      'Not enough local trending data for this category, so global rankings are shown instead.',
+      'Not enough local trending data for this category ({n} found); showing global rankings instead.',
     'videos.countryForeignNote':
       'Shows videos trending in the selected country. Foreign-language videos may appear if they are popular with local viewers.',
     'videos.tooLittleNotice':
@@ -588,7 +588,7 @@ export const translations: Record<Lang, Record<string, string>> = {
       '並べ替えを「登録者比の再生回数順」に変えると、登録者数は少ないのに動画が爆発的に伸びたチャンネルを見つけられます。こうした動画は大手チャンネルのトレンドより、企画や演出を真似しやすい場合が多く、コンテンツのヒントとして参考になります。同じカテゴリを国ごとに切り替えて比較すれば、自国にまだ来ていない海外のトレンドをいち早く見つけることもできます。',
     'video.empty': '条件に合う動画がありません。',
     'videos.fallbackNotice':
-      'この地域ではこのカテゴリのトレンドデータが少ないため、グローバルランキングを表示しています。',
+      'このカテゴリの現地トレンドデータが不足しているため（{n}件）、グローバルランキングを代わりに表示しています。',
     'videos.countryForeignNote':
       '選択した国でトレンドの動画を表示します。外国語の動画でも、その国の視聴者に人気があればランキングに含まれます。',
     'videos.tooLittleNotice':
