@@ -212,10 +212,15 @@ export async function getTrendingWithFallback(
     const globalVideos = await getTrending('global', category);
     // 글로벌이 현지보다 실제로 더 많을 때만 대체 (둘 다 비면 대체 의미 없음).
     if (globalVideos.length > videos.length) {
+      // 로컬 영상을 앞에 두고, 글로벌에서 로컬에 없는 것으로 나머지를 채운다.
+      // 한국 사용자가 food 카테고리를 볼 때 한국 영상이 먼저 노출되도록 한다.
+      const localIds = new Set(videos.map((v) => v.id));
+      const globalRest = globalVideos.filter((v) => !localIds.has(v.id));
+      const merged = [...videos, ...globalRest];
       return {
-        videos: globalVideos,
+        videos: merged,
         fallback: { from: country, localCount: videos.length },
-        tooLittle: globalVideos.length < MIN_SCARCE_THRESHOLD,
+        tooLittle: merged.length < MIN_SCARCE_THRESHOLD,
       };
     }
   }

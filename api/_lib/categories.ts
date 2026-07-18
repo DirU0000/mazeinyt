@@ -35,15 +35,20 @@ const FOOD_KEYWORDS = [
 const BEAUTY_KEYWORDS = [
   // 한국어
   '메이크업', '뷰티', '화장', '스킨케어', '네일', '헤어', '립스틱', '마스카라', '아이라이너', '파운데이션', '선크림', '색조',
+  '피부', '클렌징', '팩', '마스크팩', '피부관리', '쿠션', '비비크림', '틴트', '왁싱', '선스틱', '화장품',
   // 영어
   'makeup', 'beauty', 'skincare', 'skin care', 'cosmetic',
-  'nail art', 'nail polish', 'nail tutorial', 'nail design',
+  'nail art', 'nail polish', 'nail tutorial', 'nail design', 'nail',
   'hair care', 'haircut', 'hair color', 'hair dye', 'hairstyle',
   'foundation', 'lipstick', 'lip gloss', 'mascara', 'eyeshadow', 'eye shadow',
   'blush', 'highlighter', 'contour', 'eyelash', 'eyebrow', 'brow tutorial',
   'glam', 'moisturizer', 'serum', 'sunscreen', 'perfume', 'fragrance', 'toner', 'face mask',
+  'primer', 'concealer', 'palette', 'haul', 'grwm', 'get ready with me',
+  'glow up', 'bb cream', 'cc cream', 'self care', 'skin routine',
   // 일본어
-  'メイク', 'コスメ', '美容', 'ネイル', 'ヘアケア', 'ヘアカラー', 'リップ', 'マスカラ', 'アイシャドウ', 'ファンデ', '日焼け止め',
+  'メイク', 'メイクアップ', 'コスメ', '美容', 'ネイル', 'ネイルアート', 'ヘアケア', 'ヘアカラー', 'ヘアアレンジ',
+  'リップ', 'マスカラ', 'アイシャドウ', 'ファンデ', '日焼け止め',
+  'スキンケア', 'ビューティー', 'プチプラ', '保湿', 'クレンジング', '化粧',
 ];
 
 function titleMatches(title: string, keywords: string[]) {
