@@ -154,12 +154,16 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': '조건에 맞는 영상이 없습니다.',
     'videos.fallbackNotice':
       '이 카테고리의 현지 트렌드 자료가 부족해({n}개) 글로벌 순위를 대신 표시합니다.',
+    'videos.fallbackNoticeZero':
+      '이 카테고리의 현지 트렌드 데이터가 없어 글로벌 순위를 대신 표시합니다.',
     'videos.countryForeignNote':
       '선택한 국가에서 인기 있는 영상을 표시합니다. 외국 영상이라도 해당 국가 시청자에게 인기가 높으면 순위에 포함됩니다.',
     'videos.tooLittleNotice':
       '이 카테고리는 전 세계적으로도 트렌드 데이터가 매우 적습니다. 현재 이용 가능한 영상만 표시합니다.',
     'videos.emptyCategoryHint':
       '현재 이 카테고리에 해당하는 YouTube 트렌드 영상이 없습니다. 카테고리를 "전체"로 바꾸거나 다른 국가를 선택해보세요.',
+    'videos.educationEmptyHint':
+      'YouTube 공식 API가 현재 교육 카테고리의 트렌드 데이터를 제공하지 않습니다. 카테고리를 "전체"로 바꾸거나 다른 국가를 선택해보세요.',
     'video.badge.longTrend': '장기 인기',
     'video.error': '영상을 불러오지 못했습니다: {msg}',
 
@@ -371,12 +375,16 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': 'No videos match your filters.',
     'videos.fallbackNotice':
       'Not enough local trending data for this category ({n} found); showing global rankings instead.',
+    'videos.fallbackNoticeZero':
+      'No local trending data found for this category; showing global rankings instead.',
     'videos.countryForeignNote':
       'Shows videos trending in the selected country. Foreign-language videos may appear if they are popular with local viewers.',
     'videos.tooLittleNotice':
       'Trending data for this category is very scarce worldwide. Showing only what is currently available.',
     'videos.emptyCategoryHint':
       'No trending YouTube videos found for this category right now. Try switching to "All" or selecting a different country.',
+    'videos.educationEmptyHint':
+      'The YouTube API does not currently provide trending data for the Education category. Try switching to "All" or selecting a different country.',
     'video.badge.longTrend': 'Trending long',
     'video.error': 'Failed to load videos: {msg}',
 
@@ -589,12 +597,16 @@ export const translations: Record<Lang, Record<string, string>> = {
     'video.empty': '条件に合う動画がありません。',
     'videos.fallbackNotice':
       'このカテゴリの現地トレンドデータが不足しているため（{n}件）、グローバルランキングを代わりに表示しています。',
+    'videos.fallbackNoticeZero':
+      'このカテゴリの現地トレンドデータが見つからなかったため、グローバルランキングを代わりに表示しています。',
     'videos.countryForeignNote':
       '選択した国でトレンドの動画を表示します。外国語の動画でも、その国の視聴者に人気があればランキングに含まれます。',
     'videos.tooLittleNotice':
       'このカテゴリのトレンドデータは世界的にも非常に少ないです。現在利用可能な動画のみ表示しています。',
     'videos.emptyCategoryHint':
       'このカテゴリに該当するトレンド動画が現在ありません。カテゴリを「全体」に切り替えるか、別の国を選んでみてください。',
+    'videos.educationEmptyHint':
+      'YouTube 公式 API は現在、教育カテゴリのトレンドデータを提供していません。カテゴリを「全体」に切り替えるか、別の国を選んでみてください。',
     'video.badge.longTrend': 'ロング人気',
     'video.error': '動画を読み込めませんでした: {msg}',
 

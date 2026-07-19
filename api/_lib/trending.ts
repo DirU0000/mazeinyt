@@ -13,6 +13,7 @@ import {
 import {
   fetchChannelSubscribers,
   fetchMostPopular,
+  fetchSearch,
   parseIsoDurationToSeconds,
   type YtVideoItem,
 } from './youtubeClient.js';
@@ -27,6 +28,13 @@ const REGION_CODE: Record<Exclude<Country, 'global'>, string> = {
 const DISTINCT_CATEGORY_IDS: string[] = Array.from(
   new Set(Object.values(CATEGORY_TO_YT_ID) as string[]),
 );
+
+// mostPopular 카테고리 풀이 부족할 때 키워드 검색으로 보강하는 쿼리. (food/beauty)
+const SUPPLEMENT_QUERIES: Record<string, Record<'food' | 'beauty', string>> = {
+  KR: { food: '먹방 요리 레시피', beauty: '메이크업 뷰티 스킨케어' },
+  US: { food: 'food recipe cooking', beauty: 'makeup beauty skincare' },
+  JP: { food: '料理 グルメ 食べ', beauty: '美容 メイクアップ スキンケア' },
+};
 
 // '전체' 풀은 일반 트렌드 + 모든 카테고리 트렌드를 합친 것이라 매우 커질 수 있어
 // 조회수 상위 N개만 남긴다. (구독자 조회 비용·페이로드 크기 제한 목적)
@@ -126,6 +134,32 @@ async function getAllPool(
     .slice(0, ALL_POOL_LIMIT);
 }
 
+/**
+ * food/beauty 카테고리 풀이 부족할 때 키워드 검색으로 보강한다.
+ * 캐싱되므로 TTL 안에서 YouTube Search API 호출은 최초 1회만 발생한다.
+ */
+async function getRawBySearch(
+  country: Exclude<Country, 'global'>,
+  category: 'food' | 'beauty',
+): Promise<YtVideoItem[]> {
+  const key = `raw:${country}:search:${category}`;
+  const cached = getCache<YtVideoItem[]>(key);
+  if (cached) return cached;
+
+  const regionCode = REGION_CODE[country];
+  const q = SUPPLEMENT_QUERIES[regionCode]?.[category];
+  let items: YtVideoItem[] = [];
+  if (q) {
+    try {
+      items = await fetchSearch(regionCode, q);
+    } catch {
+      items = [];
+    }
+  }
+  setCache(key, items, TRENDING_CACHE_TTL_MS);
+  return items;
+}
+
 async function getRawItems(
   country: Exclude<Country, 'global'>,
   category: Category,
@@ -136,7 +170,17 @@ async function getRawItems(
 
   if (SHARED_HOWTO_CATEGORIES.includes(category)) {
     const pool = await getRawByCategoryId(country, CATEGORY_TO_YT_ID[category]);
-    return filterHowtoBucket(pool, category as 'food' | 'beauty');
+    const filtered = filterHowtoBucket(pool, category as 'food' | 'beauty');
+    // mostPopular 풀이 너무 적으면 키워드 검색으로 보강해 다양성을 높인다.
+    if (filtered.length < MIN_CATEGORY_RESULTS) {
+      const supplemented = await getRawBySearch(country, category as 'food' | 'beauty');
+      const merged = new Map<string, YtVideoItem>();
+      for (const item of [...filtered, ...supplemented]) {
+        if (!merged.has(item.id)) merged.set(item.id, item);
+      }
+      return Array.from(merged.values());
+    }
+    return filtered;
   }
 
   return getRawByCategoryId(country, CATEGORY_TO_YT_ID[category]);

@@ -118,6 +118,35 @@ export async function fetchMostPopular(
   return items;
 }
 
+interface YtSearchVideoItem {
+  id: { videoId: string };
+}
+
+interface YtSearchResponse {
+  items: YtSearchVideoItem[];
+}
+
+/**
+ * 키워드 검색으로 인기 동영상 ID를 가져온 뒤 상세 정보를 반환한다.
+ * quota: search.list 100 + videos.list 1 = 101 units/call.
+ */
+export async function fetchSearch(
+  regionCode: string,
+  q: string,
+  maxResults = 15,
+): Promise<YtVideoItem[]> {
+  const data = await ytFetch<YtSearchResponse>('/search', {
+    part: 'id',
+    type: 'video',
+    regionCode,
+    q,
+    order: 'viewCount',
+    maxResults: String(maxResults),
+  });
+  const ids = data.items.map((i) => i.id.videoId).filter(Boolean);
+  return fetchVideosByIds(ids);
+}
+
 /** 영상 ID로 단건(또는 소수) 조회. 존재하지 않으면 빈 배열. */
 export async function fetchVideosByIds(ids: string[]): Promise<YtVideoItem[]> {
   if (ids.length === 0) return [];

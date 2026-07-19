@@ -114,7 +114,11 @@ export default function VideosPage() {
             <p className="video-list__notice">{t('videos.countryForeignNote')}</p>
           )}
           {videos.length > 0 && fallback && (
-            <p className="video-list__notice">{t('videos.fallbackNotice', { n: fallback.localCount })}</p>
+            <p className="video-list__notice">
+              {fallback.localCount === 0
+                ? t('videos.fallbackNoticeZero')
+                : t('videos.fallbackNotice', { n: fallback.localCount })}
+            </p>
           )}
           {videos.length > 0 && tooLittle && (
             <p className="video-list__notice video-list__notice--warning">
@@ -124,7 +128,9 @@ export default function VideosPage() {
           <VideoList
             videos={pageItems}
             emptyText={
-              category === 'education' || category === 'beauty'
+              category === 'education'
+                ? t('videos.educationEmptyHint')
+                : category === 'beauty'
                 ? t('videos.emptyCategoryHint')
                 : undefined
             }
