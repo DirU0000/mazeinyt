@@ -102,6 +102,11 @@ async function getRawByCategoryId(
   let items: YtVideoItem[] = [];
   try {
     items = await fetchMostPopular(REGION_CODE[country], categoryId);
+    // YouTube mostPopular 차트는 요청한 카테고리 외의 영상을 반환하기도 한다.
+    // 영상에 부여된 실제 categoryId로 재필터링해 카테고리 간 중복 노출을 방지한다.
+    items = items.filter(
+      (item) => !item.snippet.categoryId || item.snippet.categoryId === categoryId,
+    );
   } catch {
     items = [];
   }
@@ -230,7 +235,8 @@ export async function getTrending(
 const MIN_CATEGORY_RESULTS = 10;
 
 // fallback 이후에도 이 개수 미만이면 프론트에서 "자료가 매우 적음" 경고를 띄운다.
-const MIN_SCARCE_THRESHOLD = 3;
+// beauty(~3개), education(0개)처럼 YouTube API 구조상 결과가 극히 적은 카테고리에 대응하기 위해 5로 설정.
+const MIN_SCARCE_THRESHOLD = 5;
 
 export interface TrendingResult {
   videos: Video[];

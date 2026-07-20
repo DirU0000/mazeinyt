@@ -7,6 +7,8 @@ interface YtVideoItem {
     channelId: string;
     channelTitle: string;
     publishedAt: string;
+    /** YouTube가 해당 영상에 부여한 카테고리 id (snippet part에 포함됨). */
+    categoryId?: string;
     thumbnails: {
       medium?: { url: string };
       high?: { url: string };
