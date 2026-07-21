@@ -102,15 +102,10 @@ async function getRawByCategoryId(
   let items: YtVideoItem[] = [];
   try {
     items = await fetchMostPopular(REGION_CODE[country], categoryId);
-    const beforeFilter = items.length;
-    const categoryIds = [...new Set(items.map(i => i.snippet.categoryId ?? 'undefined'))].join(',');
-    console.log(`[cat:${categoryId}] ${country} raw=${beforeFilter} categoryIds=[${categoryIds}]`);
     items = items.filter(
       (item) => !item.snippet.categoryId || item.snippet.categoryId === categoryId,
     );
-    console.log(`[cat:${categoryId}] ${country} after_filter=${items.length}`);
-  } catch (err) {
-    console.error(`[getRawByCategoryId] ${country} cat:${categoryId}`, err);
+  } catch {
     items = [];
   }
   setCache(key, items, TRENDING_CACHE_TTL_MS);
