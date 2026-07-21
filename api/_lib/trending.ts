@@ -107,7 +107,8 @@ async function getRawByCategoryId(
     items = items.filter(
       (item) => !item.snippet.categoryId || item.snippet.categoryId === categoryId,
     );
-  } catch {
+  } catch (err) {
+    console.error(`[getRawByCategoryId] ${country} cat:${categoryId}`, err);
     items = [];
   }
   setCache(key, items, TRENDING_CACHE_TTL_MS);
