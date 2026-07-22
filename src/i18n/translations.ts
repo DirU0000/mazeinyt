@@ -223,6 +223,27 @@ export const translations: Record<Lang, Record<string, string>> = {
       '조회수 대비 좋아요 비율은 {pct}%로 다소 낮은 편입니다.',
     'video.insight.pace':
       '업로드 후 {days}일이 지났고, 하루 평균 약 {n}회의 조회수가 발생하고 있습니다.',
+    'video.insight.channelContext.mega':
+      '{name}은 구독자 1천만 이상의 메가 채널입니다.',
+    'video.insight.channelContext.large':
+      '{name}은 구독자 100만~1천만의 대형 채널입니다.',
+    'video.insight.channelContext.medium':
+      '{name}은 구독자 10만~100만의 중형 채널입니다.',
+    'video.insight.channelContext.small':
+      '{name}은 구독자 1만~10만의 소규모 채널입니다.',
+    'video.insight.channelContext.micro':
+      '{name}은 구독자 1천~1만의 마이크로 채널입니다.',
+    'video.insight.channelContext.nano':
+      '{name}은 구독자 1천 미만의 채널입니다.',
+    'video.insight.creatorTitle': '크리에이터 시사점',
+    'video.insight.creator.explosive':
+      '구독자 수를 크게 초과하는 조회수는 알고리즘이 이 영상을 새로운 시청자에게 적극 추천하고 있다는 신호입니다. 제목, 썸네일, 영상 초반 후킹 방식을 분석해볼 가치가 있습니다.',
+    'video.insight.creator.fast':
+      '구독자 기반을 넘어 빠르게 퍼지는 영상입니다. 콘텐츠의 주제나 업로드 타이밍이 현재 알고리즘과 잘 맞아떨어지고 있습니다. 비슷한 카테고리에서 참고할 만한 사례입니다.',
+    'video.insight.creator.steady':
+      '구독자 외 시청자에게도 꾸준히 도달하는 영상입니다. 주제나 형식 자체에 알고리즘이 지속적으로 반응하고 있으며, 장기적인 트래픽 유입이 기대됩니다.',
+    'video.insight.creator.core':
+      '구독자 중심으로 시청되는 영상입니다. 해당 채널의 팬층이 어떤 콘텐츠에 반응하는지 파악하는 데 유용한 사례입니다.',
 
     'lang.aria': '언어 선택',
 
@@ -446,6 +467,27 @@ export const translations: Record<Lang, Record<string, string>> = {
       'The like rate is {pct}% of views — somewhat low.',
     'video.insight.pace':
       "It's been {days} day(s) since upload, averaging about {n} views per day.",
+    'video.insight.channelContext.mega':
+      '{name} is a mega channel with 10M+ subscribers.',
+    'video.insight.channelContext.large':
+      '{name} is a large channel with 1M–10M subscribers.',
+    'video.insight.channelContext.medium':
+      '{name} is a mid-size channel with 100K–1M subscribers.',
+    'video.insight.channelContext.small':
+      '{name} is a small channel with 10K–100K subscribers.',
+    'video.insight.channelContext.micro':
+      '{name} is a micro channel with 1K–10K subscribers.',
+    'video.insight.channelContext.nano':
+      '{name} is a nano channel with fewer than 1K subscribers.',
+    'video.insight.creatorTitle': 'Creator Takeaway',
+    'video.insight.creator.explosive':
+      "Views far exceeding the subscriber count signal that the algorithm is actively pushing this video to new audiences. It's worth studying the title, thumbnail, and early-video hook.",
+    'video.insight.creator.fast':
+      "This video is spreading quickly beyond its subscriber base. The topic or upload timing appears well-aligned with what the algorithm currently favors — a useful reference for similar content.",
+    'video.insight.creator.steady':
+      'This video is reaching viewers outside the existing subscriber base consistently. The topic or format is sustaining algorithmic interest, which bodes well for long-term traffic.',
+    'video.insight.creator.core':
+      "Views are concentrated among existing subscribers. This is a useful case study for understanding what content resonates with this channel's fanbase.",
 
     'lang.aria': 'Select language',
 
@@ -666,6 +708,27 @@ export const translations: Record<Lang, Record<string, string>> = {
       '再生回数に対する高評価率は{pct}%とやや低めです。',
     'video.insight.pace':
       '投稿から{days}日が経過し、1日あたり平均約{n}回の再生が発生しています。',
+    'video.insight.channelContext.mega':
+      '{name}は登録者1000万人以上のメガチャンネルです。',
+    'video.insight.channelContext.large':
+      '{name}は登録者100万〜1000万人の大手チャンネルです。',
+    'video.insight.channelContext.medium':
+      '{name}は登録者10万〜100万人の中規模チャンネルです。',
+    'video.insight.channelContext.small':
+      '{name}は登録者1万〜10万人の小規模チャンネルです。',
+    'video.insight.channelContext.micro':
+      '{name}は登録者1000〜1万人のマイクロチャンネルです。',
+    'video.insight.channelContext.nano':
+      '{name}は登録者1000人未満のチャンネルです。',
+    'video.insight.creatorTitle': 'クリエイターへの示唆',
+    'video.insight.creator.explosive':
+      '登録者数を大きく超える再生回数は、アルゴリズムがこの動画を新規視聴者に積極的に推薦しているサインです。タイトル、サムネイル、動画序盤のフックを分析する価値があります。',
+    'video.insight.creator.fast':
+      '登録者層を超えて急速に広がっている動画です。コンテンツのテーマや投稿タイミングが現在のアルゴリズムと合致しています。同カテゴリで参考にしやすい事例です。',
+    'video.insight.creator.steady':
+      '既存の登録者以外にも安定して届いている動画です。テーマやフォーマット自体がアルゴリズムに継続的に評価されており、長期的なトラフィック流入が期待できます。',
+    'video.insight.creator.core':
+      '既存の登録者を中心に視聴されている動画です。このチャンネルのファン層がどんなコンテンツに反応するかを把握するための参考事例として活用できます。',
 
     'lang.aria': '言語を選択',
 

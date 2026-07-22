@@ -6,7 +6,7 @@ import { SITE_URL } from '../config/site';
 import { useI18n } from '../i18n/I18nContext';
 import { useVideoDetail } from '../hooks/useVideoDetail';
 import { formatCount } from '../utils/format';
-import { getEngagementTier, getViralTier } from '../utils/videoInsights';
+import { getChannelTier, getEngagementTier, getViralTier } from '../utils/videoInsights';
 import { formatDuration, getVideoType } from '../utils/videoType';
 import './VideoDetailPage.css';
 
@@ -75,6 +75,7 @@ export default function VideoDetailPage() {
 
   const viralTier = getViralTier(video.viralRatio);
   const engagementTier = getEngagementTier(video.engagementRate);
+  const channelTier = getChannelTier(video.subscriberCount);
 
   return (
     <article className="video-detail">
@@ -151,6 +152,11 @@ export default function VideoDetailPage() {
           {t('video.analysisTitle')}
         </h2>
         <p>
+          {t(`video.insight.channelContext.${channelTier}`, {
+            name: video.channelName,
+          })}
+        </p>
+        <p>
           {t(`video.insight.viral.${viralTier}`, {
             ratio: formatCount(video.viralRatio),
           })}
@@ -166,6 +172,14 @@ export default function VideoDetailPage() {
             n: formatCount(video.viewsPerDay),
           })}
         </p>
+      </section>
+
+      <section className="video-detail__analysis">
+        <h2 className="video-detail__analysis-title">
+          <Icon name="chart" />
+          {t('video.insight.creatorTitle')}
+        </h2>
+        <p>{t(`video.insight.creator.${viralTier}`)}</p>
       </section>
     </article>
   );
